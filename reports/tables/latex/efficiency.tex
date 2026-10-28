@@ -1,0 +1,53 @@
+\begin{tabular}{llllllllllllll}
+\toprule
+run\_id & run\_kind & model & system & n\_items & calls & calls\_per\_item & prompt\_tokens\_per\_item & completion\_tokens\_per\_item & format\_retry\_rate & wall\_seconds & cache\_hits & slurm\_job & server\_version \\
+\midrule
+dev\_m1\_c0 & predict & m1 & c0 & 202 & 202 & 1.000 & 168.119 & 8.386 & 0.000 & 11.700 & 0 & None & None \\
+dev\_m1\_c1 & predict & m1 & c1 & 202 & 202 & 1.000 & 202.119 & 46.406 & 0.000 & 17.600 & 0 & None & None \\
+dev\_m1\_c2 & predict & m1 & c2 & 202 & 202 & 1.000 & 299.119 & 75.881 & 0.000 & 30.700 & 0 & None & None \\
+dev\_m1\_c3 & predict & m1 & c3 & 202 & 202 & 1.000 & 319.119 & 91.990 & 0.000 & 31.400 & 0 & None & None \\
+dev\_m1\_c3n & predict & m1 & c3n & 202 & 202 & 1.000 & 248.119 & 50.931 & 0.000 & 23.000 & 0 & None & None \\
+dev\_m2\_c0 & predict & m2 & c0 & 202 & 202 & 1.000 & 168.119 & 8.277 & 0.000 & 5.200 & 0 & None & None \\
+dev\_m2\_c1 & predict & m2 & c1 & 202 & 202 & 1.000 & 202.119 & 42.455 & 0.000 & 8.800 & 0 & None & None \\
+dev\_m2\_c2 & predict & m2 & c2 & 202 & 202 & 1.000 & 299.119 & 81.262 & 0.000 & 11.300 & 0 & None & None \\
+dev\_m2\_c3 & predict & m2 & c3 & 202 & 202 & 1.000 & 319.119 & 90.436 & 0.000 & 12.000 & 10 & None & None \\
+dev\_m2\_c3n & predict & m2 & c3n & 202 & 202 & 1.000 & 248.119 & 51.545 & 0.000 & 9.700 & 0 & None & None \\
+main\_m1\_c0 & predict & m1 & c0 & 600 & 600 & 1.000 & 167.673 & 8.400 & 0.000 & 29.900 & 0 & None & None \\
+main\_m1\_c1 & predict & m1 & c1 & 600 & 600 & 1.000 & 201.673 & 46.578 & 0.000 & 58.900 & 0 & None & None \\
+main\_m1\_c2 & predict & m1 & c2 & 600 & 600 & 1.000 & 298.673 & 72.688 & 0.000 & 66.800 & 0 & None & None \\
+main\_m1\_c3 & predict & m1 & c3 & 600 & 602 & 1.003 & 320.250 & 88.855 & 0.003 & 100.100 & 0 & None & None \\
+main\_m1\_c3n & predict & m1 & c3n & 600 & 600 & 1.000 & 247.673 & 50.992 & 0.000 & 54.900 & 0 & None & None \\
+main\_m2\_c0 & predict & m2 & c0 & 600 & 600 & 1.000 & 167.673 & 8.193 & 0.000 & 12.900 & 0 & None & None \\
+main\_m2\_c1 & predict & m2 & c1 & 600 & 600 & 1.000 & 201.673 & 42.202 & 0.000 & 22.600 & 0 & None & None \\
+main\_m2\_c2 & predict & m2 & c2 & 600 & 600 & 1.000 & 298.673 & 77.800 & 0.000 & 31.900 & 0 & None & None \\
+main\_m2\_c3 & predict & m2 & c3 & 600 & 601 & 1.002 & 319.452 & 88.062 & 0.002 & 35.900 & 0 & None & None \\
+main\_m2\_c3n & predict & m2 & c3n & 600 & 600 & 1.000 & 247.673 & 51.547 & 0.000 & 26.700 & 0 & None & None \\
+noise\_m1\_c3 & predict & m1 & c3 & 600 & 604 & 1.007 & 321.812 & 89.102 & 0.007 & 152.400 & 0 & None & None \\
+noise\_m2\_c3 & predict & m2 & c3 & 600 & 600 & 1.000 & 318.673 & 87.762 & 0.000 & 32.900 & 0 & None & None \\
+probe\_main\_m1\_c1 & probe & m1 & c1 & 600 & 600 & 1.000 & 232.877 & 8.397 & 0.000 & 64.400 & 0 & None & None \\
+probe\_main\_m1\_c2 & probe & m1 & c2 & 600 & 600 & 1.000 & 226.525 & 8.363 & 0.000 & 65.100 & 6 & None & None \\
+probe\_main\_m1\_c3 & probe & m1 & c3 & 600 & 600 & 1.000 & 231.088 & 8.297 & 0.000 & 64.000 & 48 & None & None \\
+probe\_main\_m1\_c3n & probe & m1 & c3n & 600 & 600 & 1.000 & 232.805 & 8.360 & 0.000 & 65.600 & 58 & None & None \\
+probe\_main\_m2\_c1 & probe & m1 & c1 & 600 & 600 & 1.000 & 228.675 & 8.293 & 0.000 & 64.800 & 20 & None & None \\
+probe\_main\_m2\_c2 & probe & m1 & c2 & 600 & 600 & 1.000 & 229.338 & 8.327 & 0.000 & 64.700 & 25 & None & None \\
+probe\_main\_m2\_c3 & probe & m1 & c3 & 599 & 599 & 1.000 & 233.439 & 8.262 & 0.000 & 64.400 & 58 & None & None \\
+probe\_main\_m2\_c3n & probe & m1 & c3n & 600 & 600 & 1.000 & 233.607 & 8.270 & 0.000 & 65.000 & 110 & None & None \\
+probe\_revise\_main\_m1\_c2\_generic & probe & m1 & c2 & 600 & 600 & 1.000 & 227.372 & 8.270 & 0.000 & 32.600 & 463 & None & None \\
+probe\_revise\_main\_m1\_c2\_verify & probe & m1 & c2 & 600 & 600 & 1.000 & 226.573 & 8.193 & 0.000 & 32.700 & 507 & None & None \\
+probe\_revise\_main\_m1\_c3\_generic & probe & m1 & c3 & 600 & 600 & 1.000 & 230.267 & 8.350 & 0.000 & 32.300 & 476 & None & None \\
+probe\_revise\_main\_m1\_c3\_verify & probe & m1 & c3 & 600 & 600 & 1.000 & 230.892 & 8.213 & 0.000 & 32.800 & 542 & None & None \\
+probe\_revise\_main\_m2\_c2\_generic & probe & m1 & c2 & 600 & 600 & 1.000 & 229.060 & 8.320 & 0.000 & 31.200 & 574 & None & None \\
+probe\_revise\_main\_m2\_c2\_verify & probe & m1 & c2 & 600 & 600 & 1.000 & 228.928 & 8.310 & 0.000 & 35.300 & 570 & None & None \\
+probe\_revise\_main\_m2\_c3\_generic & probe & m1 & c3 & 599 & 599 & 1.000 & 233.230 & 8.259 & 0.000 & 29.200 & 582 & None & None \\
+probe\_revise\_main\_m2\_c3\_verify & probe & m1 & c3 & 600 & 600 & 1.000 & 233.210 & 8.247 & 0.000 & 1.500 & 586 & None & None \\
+revise\_main\_m1\_c2\_generic & revise & m1 & c2+generic & 600 & 609 & 1.015 & 331.223 & 81.890 & 0.015 & 153.600 & 0 & None & None \\
+revise\_main\_m1\_c2\_verify & revise & m1 & c2+verify & 600 & 600 & 1.000 & 503.408 & 112.160 & 0.000 & 122.900 & 0 & None & None \\
+revise\_main\_m1\_c3\_generic & revise & m1 & c3+generic & 600 & 610 & 1.017 & 341.317 & 86.165 & 0.017 & 96.200 & 27 & None & None \\
+revise\_main\_m1\_c3\_verify & revise & m1 & c3+verify & 600 & 600 & 1.000 & 523.007 & 116.093 & 0.000 & 125.300 & 27 & None & None \\
+revise\_main\_m2\_c2\_generic & revise & m2 & c2+generic & 600 & 600 & 1.000 & 328.835 & 79.652 & 0.000 & 32.500 & 0 & None & None \\
+revise\_main\_m2\_c2\_verify & revise & m2 & c2+verify & 600 & 600 & 1.000 & 510.163 & 113.328 & 0.000 & 39.300 & 0 & None & None \\
+revise\_main\_m2\_c3\_generic & revise & m2 & c3+generic & 600 & 600 & 1.000 & 333.578 & 80.420 & 0.000 & 31.900 & 30 & None & None \\
+revise\_main\_m2\_c3\_verify & revise & m2 & c3+verify & 600 & 600 & 1.000 & 516.195 & 113.443 & 0.000 & 39.800 & 30 & None & None \\
+smoke\_m2\_c3 & predict & m2 & c3 & 10 & 10 & 1.000 & 319.800 & 89.100 & 0.000 & 1.800 & 0 & None & None \\
+\bottomrule
+\end{tabular}

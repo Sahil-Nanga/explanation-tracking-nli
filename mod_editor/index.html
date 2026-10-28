@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modification Editor</title>
+<style>
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --border: #d8dce2; --text: #1c2129; --muted: #69727e;
+  --accent: #2c66d6; --accent-soft: #e6eefc;
+  --del-bg: #fbe1e1; --del-fg: #9d2424; --ins-bg: #daf2e1; --ins-fg: #18652f;
+  --warn-bg: #fff3d1; --warn-fg: #6f5200; --err-bg: #fde0e0; --err-fg: #8d1c1c;
+  --ok-fg: #18652f;
+  --s-todo: #b7bdc6; --s-done: #2c66d6; --s-verified: #1f8a46; --s-rejected: #c23a3a;
+  --l-entailment: #1f8a46; --l-neutral: #7a7f87; --l-contradiction: #c23a3a;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15181d; --panel: #1d2128; --border: #333944; --text: #e4e7ec; --muted: #9099a6;
+    --accent: #6c9cf5; --accent-soft: #24324d;
+    --del-bg: #4a2224; --del-fg: #f2a9a9; --ins-bg: #1d3d28; --ins-fg: #9fe0b2;
+    --warn-bg: #3d3216; --warn-fg: #f1d48a; --err-bg: #4a2224; --err-fg: #f2a9a9;
+    --ok-fg: #8bd8a3;
+    --s-todo: #4d5562; --s-done: #6c9cf5; --s-verified: #4cc27a; --s-rejected: #ec6b6b;
+    --l-entailment: #4cc27a; --l-neutral: #a3a9b2; --l-contradiction: #ec6b6b;
+  }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; display: flex; }
+button, input, select, textarea { font: inherit; color: inherit; }
+#side { width: 310px; flex: none; border-right: 1px solid var(--border); background: var(--panel);
+  display: flex; flex-direction: column; height: 100vh; }
+.sidehead { padding: 12px; border-bottom: 1px solid var(--border); display: grid; gap: 8px; }
+.sidehead input, .sidehead select { width: 100%; padding: 6px 8px; border: 1px solid var(--border);
+  border-radius: 6px; background: var(--bg); }
+#progress { font-size: 12px; color: var(--muted); }
+.bar { height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; display: flex; }
+.bar span { display: block; height: 100%; }
+#list { overflow-y: auto; flex: 1; }
+.item { padding: 8px 12px; border-bottom: 1px solid var(--border); cursor: pointer; display: grid;
+  grid-template-columns: 34px 1fr auto; gap: 8px; align-items: center; }
+.item:hover { background: var(--accent-soft); }
+.item.active { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+.item .num { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; }
+.item .snip { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; }
+.dots { display: flex; gap: 3px; align-items: center; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--s-todo); }
+.dot.done { background: var(--s-done); } .dot.verified { background: var(--s-verified); }
+.dot.rejected { background: var(--s-rejected); }
+.dot.edited { background: transparent; box-shadow: inset 0 0 0 2px var(--s-done); }
+.warnmark { color: var(--warn-fg); font-size: 12px; margin-left: 2px; }
+#main { flex: 1; overflow-y: auto; height: 100vh; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 16px 24px 80px; }
+.topbar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; position: sticky; top: 0;
+  background: var(--bg); padding: 8px 0; z-index: 2; }
+.topbar h1 { font-size: 17px; margin: 0; flex: 1; }
+.btn { border: 1px solid var(--border); background: var(--panel); border-radius: 6px; padding: 5px 12px;
+  cursor: pointer; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.small { padding: 2px 8px; font-size: 12px; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  margin-bottom: 14px; }
+.card h2 { font-size: 15px; margin: 0 0 2px; display: flex; align-items: center; gap: 8px; }
+.hint { color: var(--muted); font-size: 12.5px; margin-bottom: 10px; }
+.orig .line { margin: 4px 0; }
+.orig .k { display: inline-block; width: 90px; color: var(--muted); font-size: 12px; text-transform: uppercase;
+  letter-spacing: .04em; }
+.chip { display: inline-block; border-radius: 10px; padding: 0 8px; font-size: 12px; font-weight: 600;
+  border: 1px solid currentColor; }
+.chip.entailment { color: var(--l-entailment); } .chip.neutral { color: var(--l-neutral); }
+.chip.contradiction { color: var(--l-contradiction); }
+label.f { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 3px; }
+textarea, input.t { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 7px 9px;
+  background: var(--bg); resize: vertical; }
+textarea:focus, input.t:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.diff { margin-top: 4px; padding: 6px 9px; border-radius: 6px; border: 1px dashed var(--border); font-size: 13px; }
+.diff .none { color: var(--muted); font-style: italic; }
+.diff del { background: var(--del-bg); color: var(--del-fg); text-decoration: line-through; border-radius: 3px; padding: 0 2px; }
+.diff ins { background: var(--ins-bg); color: var(--ins-fg); text-decoration: none; border-radius: 3px; padding: 0 2px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid4 select { width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); }
+.msgs { margin-top: 10px; display: grid; gap: 4px; }
+.msg { padding: 5px 9px; border-radius: 6px; font-size: 12.5px; }
+.msg.warn { background: var(--warn-bg); color: var(--warn-fg); }
+.msg.err { background: var(--err-bg); color: var(--err-fg); }
+.msg.ok { color: var(--ok-fg); padding-left: 0; }
+.saved { font-size: 12px; color: var(--muted); font-weight: normal; margin-left: auto; }
+.saved.dirty { color: var(--warn-fg); } .saved.error { color: var(--err-fg); }
+#offline { position: sticky; top: 0; z-index: 5; background: var(--err-bg); color: var(--err-fg); padding: 10px 24px; font-weight: 600; }
+#offline code { font-weight: normal; }
+kbd { border: 1px solid var(--border); border-radius: 4px; padding: 0 4px; font-size: 11px; background: var(--bg); }
+.help { color: var(--muted); font-size: 12px; }
+@media (max-width: 800px) {
+  body { flex-direction: column; } #side { width: 100%; height: 40vh; } #main { height: 60vh; }
+  .grid4 { grid-template-columns: 1fr 1fr; } .wrap { padding: 12px 16px 60px; }
+}
+</style>
+</head>
+<body>
+<aside id="side">
+  <div class="sidehead">
+    <input id="author" placeholder="Your initials (filled into author)">
+    <select id="filter">
+      <option value="all">Show: all examples</option>
+      <option value="todo">Show: has todo rows</option>
+      <option value="warn">Show: has warnings</option>
+      <option value="finished">Show: all 3 done/verified</option>
+    </select>
+    <input id="search" placeholder="Search sentences or #number">
+    <div id="progress"></div>
+  </div>
+  <div id="list"></div>
+</aside>
+<main id="main"><div id="offline" hidden>⚠ Cannot reach the editor server, so changes are NOT being saved. Start it with <code>python3 mod_editor/app.py</code> and keep that terminal open. Don't close or reload this tab: unsaved changes will save automatically once the server is back.</div><div class="wrap" id="content">Loading…</div></main>
+
+<script>
+const MOD_TYPES = ["label_change", "paraphrase", "irrelevant_addition"];
+const MOD_INFO = {
+  label_change: { title: "Label-changing edit",
+    hint: "Change the decisive evidence (usually in the premise) as little as possible so the label changes." },
+  paraphrase: { title: "Meaning-preserving paraphrase",
+    hint: "Reword the premise visibly; same meaning, same label. Keep negations and numbers exactly." },
+  irrelevant_addition: { title: "Irrelevant-information addition",
+    hint: "Add one unrelated sentence to the premise. Remove nothing; never touch the hypothesis." },
+};
+const LABELS = ["entailment", "neutral", "contradiction"];
+const STATUSES = ["todo", "done", "verified", "rejected"];
+const SIDES = ["premise", "hypothesis", "both"];
+const PROVENANCE = ["human_written", "claude_draft", "human_edited"];
+
+let DATA = null, GROUPS = [], cur = 0;
+const saveTimers = {}, pending = {};
+
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const norm = s => String(s ?? "").replace(/\s+/g, " ").trim();
+
+function tokens(s) {
+  const out = [], re = /[A-Za-z0-9]+(?:['’][A-Za-z]+)?|[^\sA-Za-z0-9]/g;
+  let m; s = s || "";
+  while ((m = re.exec(s))) out.push({ w: m[0], lw: m[0].toLowerCase(), s: m.index, e: m.index + m[0].length });
+  return out;
+}
+function diff(a, b) {
+  const A = tokens(a), B = tokens(b), n = A.length, m = B.length;
+  const dp = Array.from({ length: n + 1 }, () => new Int32Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    dp[i][j] = A[i].w === B[j].w ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  const ops = []; let i = 0, j = 0;
+  while (i < n && j < m) {
+    if (A[i].w === B[j].w) { ops.push({ t: "=", a: A[i], b: B[j] }); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) ops.push({ t: "-", a: A[i++] });
+    else ops.push({ t: "+", b: B[j++] });
+  }
+  while (i < n) ops.push({ t: "-", a: A[i++] });
+  while (j < m) ops.push({ t: "+", b: B[j++] });
+  return { ops, nA: n, nB: m };
+}
+function changeBlocks(a, b) {
+  const { ops } = diff(a, b), blocks = []; let blk = null;
+  for (const op of ops) {
+    if (op.t === "=") { if (blk) { blocks.push(blk); blk = null; } continue; }
+    blk = blk || { del: [], ins: [] };
+    (op.t === "-" ? blk.del : blk.ins).push(op.t === "-" ? op.a : op.b);
+  }
+  if (blk) blocks.push(blk);
+  const slice = (txt, toks) => toks.length ? txt.slice(toks[0].s, toks[toks.length - 1].e) : "";
+  return blocks.map(bk => ({ del: slice(a, bk.del), ins: slice(b, bk.ins) }));
+}
+function diffHTML(a, b) {
+  if (norm(a) === norm(b)) return '<span class="none">unchanged</span>';
+  const { ops } = diff(a, b); let html = "", prevOpen = false;
+  for (const op of ops) {
+    const tok = (op.b || op.a).w;
+    const space = html && !/^[.,;:!?)\]’'"]$/.test(tok) && !prevOpen ? " " : "";
+    prevOpen = /^[(\[“]$/.test(tok);
+    const w = esc(tok);
+    html += space + (op.t === "=" ? w : op.t === "-" ? `<del>${w}</del>` : `<ins>${w}</ins>`);
+  }
+  return html;
+}
+
+function actualSide(r) {
+  const p = norm(r.new_premise) !== norm(r.orig_premise), h = norm(r.new_hypothesis) !== norm(r.orig_hypothesis);
+  return p && h ? "both" : p ? "premise" : h ? "hypothesis" : "";
+}
+function checks(r) {
+  const errs = [], warns = [], o = DATA.originals[r.orig_id];
+  if (o) {
+    for (const [col, key] of [["orig_premise", "premise"], ["orig_hypothesis", "hypothesis"], ["orig_label", "gold_label"]])
+      if (r[col] !== o[key]) errs.push({ text: `${col} was changed and no longer matches the dataset. Original columns must never be edited.`, restore: col });
+  }
+  const side = actualSide(r), st = r.status || "todo", exp = r.expected_label;
+  if (exp && !LABELS.includes(exp)) errs.push({ text: `Invalid expected_label "${exp}".` });
+  if (st !== "todo" && !side) warns.push("Nothing has been changed yet, but status is not todo.");
+
+  if (r.mod_type === "label_change") {
+    if (side && !exp) warns.push("Set the expected label for the edited pair.");
+    if (exp && exp === r.orig_label) warns.push(`The expected label equals the original (${exp}); a label-changing edit must change it.`);
+    if (side === "both") warns.push("Both sentences were edited; edit one side so the cause is clear.");
+  } else {
+    if (exp && exp !== r.orig_label) warns.push(`This type must keep the original label (${r.orig_label}).`);
+  }
+  if (r.mod_type === "paraphrase") {
+    if (side === "hypothesis" || side === "both") warns.push("Paraphrases should edit only the premise.");
+    if (side === "premise") {
+      const { ops, nA } = diff(r.orig_premise, r.new_premise);
+      const changed = ops.filter(op => op.t !== "=").length;
+      if (changed / Math.max(nA, 1) < 0.2) warns.push("Very small change; a paraphrase should reword the premise more visibly.");
+    }
+  }
+  if (r.mod_type === "irrelevant_addition") {
+    if (side === "hypothesis" || side === "both") warns.push("Never add to the hypothesis; it changes what must be proven.");
+    if (side === "premise" && diff(r.orig_premise, r.new_premise).ops.some(op => op.t === "-"))
+      warns.push("Original premise text was removed or altered (shown struck out). An irrelevant addition should only add.");
+  }
+  if (side && r.edited_side && r.edited_side !== side) warns.push(`edited_side says "${r.edited_side}" but the change is in: ${side}.`);
+  if (side && !r.edited_side) warns.push(`Set edited_side (looks like: ${side}).`);
+
+  for (const [col, name] of [["new_premise", "Premise"], ["new_hypothesis", "Hypothesis"]]) {
+    const t = r[col] || "";
+    if (/\s[,.;:!?]/.test(t)) warns.push(`${name}: space before punctuation.`);
+    if (/ {2,}/.test(t)) warns.push(`${name}: double space.`);
+    const origCol = col.replace("new_", "orig_");
+    if (/[.!?"]\s*$/.test(r[origCol] || "") && t && !/[.!?"]\s*$/.test(t)) warns.push(`${name}: missing final punctuation.`);
+    if (/,\s*(it|there|they|he|she|this)\s+(is|are|was|were)\b/i.test(t) && !/,\s*(it|there|they|he|she|this)\s+(is|are|was|were)\b/i.test(r[origCol] || ""))
+      warns.push(`${name}: looks like a comma splice; use a separate sentence.`);
+  }
+  if (st === "done" || st === "verified") {
+    if (!norm(r.reason)) warns.push("Reason is empty.");
+    if (!norm(r.author)) warns.push("Author is empty.");
+    if (!norm(r.changed_span_new)) warns.push("changed_span_new is empty.");
+    if (r.mod_type === "label_change" && !norm(r.changed_span_original)) warns.push("changed_span_original is empty.");
+  }
+  return { errs, warns };
+}
+
+function rowsOf(g) { return MOD_TYPES.map(t => DATA.rows.find(r => r.orig_id === g && r.mod_type === t)).filter(Boolean); }
+function groupHasWarn(rows) { return rows.some(r => { const c = checks(r); return c.errs.length || (r.status !== "todo" && c.warns.length); }); }
+
+async function load() {
+  const res = await fetch("/api/data"); DATA = await res.json();
+  const seen = new Set();
+  for (const r of DATA.rows) if (!seen.has(r.orig_id)) { seen.add(r.orig_id); GROUPS.push(r.orig_id); }
+  const saved = parseInt(store.get("modEditor.cur") || "0", 10);
+  cur = Number.isFinite(saved) && saved >= 0 && saved < GROUPS.length ? saved : 0;
+  document.getElementById("author").value = store.get("modEditor.author") || "";
+  renderList(); renderMain();
+}
+
+function renderProgress() {
+  const n = DATA.rows.length, c = s => DATA.rows.filter(r => (r.status || "todo") === s).length;
+  const d = c("done"), v = c("verified"), x = c("rejected");
+  const pct = k => (100 * k / n).toFixed(2) + "%";
+  document.getElementById("progress").innerHTML =
+    `<div class="bar"><span style="width:${pct(v)};background:var(--s-verified)"></span><span style="width:${pct(d)};background:var(--s-done)"></span><span style="width:${pct(x)};background:var(--s-rejected)"></span></div>
+     <div style="margin-top:4px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><span><span class="dot" style="display:inline-block"></span> todo</span><span><span class="dot edited" style="display:inline-block"></span> edited, not marked done</span><span><span class="dot done" style="display:inline-block"></span> done</span><span><span class="dot verified" style="display:inline-block"></span> verified</span></div>
+     <div style="margin-top:4px">${d} done · ${v} verified · ${x} rejected · ${n - d - v - x} todo (of ${n})</div>
+     <div style="margin-top:2px;word-break:break-all">${esc(DATA.csv_path)}</div>`;
+}
+function renderList() {
+  renderProgress();
+  const f = document.getElementById("filter").value, q = document.getElementById("search").value.trim().toLowerCase();
+  const list = document.getElementById("list"); let html = "";
+  GROUPS.forEach((g, i) => {
+    const rows = rowsOf(g), r0 = rows[0];
+    if (q) {
+      const numQ = q.replace(/^#/, "");
+      if (!(String(i + 1) === numQ || (r0.orig_premise + " " + r0.orig_hypothesis + " " + g).toLowerCase().includes(q))) return;
+    }
+    const warn = groupHasWarn(rows);
+    if (f === "todo" && !rows.some(r => (r.status || "todo") === "todo")) return;
+    if (f === "warn" && !warn) return;
+    if (f === "finished" && !rows.every(r => r.status === "done" || r.status === "verified")) return;
+    html += `<div class="item ${i === cur ? "active" : ""}" data-i="${i}">
+      <span class="num">#${i + 1}</span>
+      <span class="snip" title="${esc(r0.orig_premise)}"><span class="chip ${esc(r0.orig_label)}" style="font-size:10px;padding:0 5px;margin-right:4px">${esc(r0.orig_label.slice(0, 3))}</span>${esc(r0.orig_premise)}</span>
+      <span class="dots">${rows.map(r => { const ed = (r.status || "todo") === "todo" && actualSide(r); return `<span class="dot ${esc(r.status)}${ed ? " edited" : ""}" title="${r.mod_type}: ${ed ? "edited, still todo" : esc(r.status || "todo")}"></span>`; }).join("")}${warn ? '<span class="warnmark" title="has warnings">⚠</span>' : ""}</span>
+    </div>`;
+  });
+  list.innerHTML = html || '<div style="padding:12px;color:var(--muted)">No matches.</div>';
+  const active = list.querySelector(".item.active"); if (active) active.scrollIntoView({ block: "nearest" });
+}
+document.getElementById("list").addEventListener("click", e => {
+  const it = e.target.closest(".item"); if (it) go(parseInt(it.dataset.i, 10));
+});
+document.getElementById("filter").addEventListener("change", renderList);
+document.getElementById("search").addEventListener("input", renderList);
+document.getElementById("author").addEventListener("input", e => store.set("modEditor.author", e.target.value.trim()));
+
+const sel = (field, opts, val, blank) =>
+  `<select data-f="${field}">${blank ? `<option value="">${blank}</option>` : ""}${opts.map(o => `<option ${o === val ? "selected" : ""}>${o}</option>`).join("")}${val && !opts.includes(val) ? `<option selected>${esc(val)}</option>` : ""}</select>`;
+
+function renderMain() {
+  const g = GROUPS[cur], rows = rowsOf(g), r0 = rows[0];
+  const content = document.getElementById("content");
+  content.innerHTML = `
+    <div class="topbar">
+      <button class="btn" id="prev" title="Alt+←">← Prev</button>
+      <h1>Example #${cur + 1} of ${GROUPS.length} <span class="help">· ${esc(g)}</span></h1>
+      <button class="btn" id="next" title="Alt+→">Next →</button>
+    </div>
+    <div class="card orig">
+      <h2>Original <span class="chip ${esc(r0.orig_label)}">${esc(r0.orig_label)}</span></h2>
+      <div class="line"><span class="k">Premise</span>${esc(DATA.originals[g]?.premise ?? r0.orig_premise)}</div>
+      <div class="line"><span class="k">Hypothesis</span>${esc(DATA.originals[g]?.hypothesis ?? r0.orig_hypothesis)}</div>
+      <div class="help" style="margin-top:6px">Autosaves as you type · <kbd>Alt</kbd>+<kbd>←</kbd>/<kbd>→</kbd> previous/next example · <kbd>Ctrl/⌘</kbd>+<kbd>S</kbd> save now</div>
+    </div>
+    ${rows.map(cardHTML).join("")}`;
+  rows.forEach(r => { const c = content.querySelector(`[data-mod="${CSS.escape(r.mod_id)}"]`); bindCard(c, r); refreshCard(c, r); });
+  document.getElementById("prev").onclick = () => go(cur - 1);
+  document.getElementById("next").onclick = () => go(cur + 1);
+  requestAnimationFrame(growAll);
+  document.getElementById("main").scrollTop = 0;
+}
+function cardHTML(r) {
+  const info = MOD_INFO[r.mod_type] || { title: r.mod_type, hint: "" };
+  const fixedLabel = r.mod_type !== "label_change";
+  return `<div class="card" data-mod="${esc(r.mod_id)}">
+    <h2>${info.title} <span class="saved" data-saved>saved</span></h2>
+    <div class="hint">${info.hint}</div>
+    <label class="f">New premise <button class="btn small" data-reset="new_premise" title="Copy the original back in">reset to original</button></label>
+    <textarea rows="2" data-f="new_premise">${esc(r.new_premise)}</textarea>
+    <div class="diff" data-diff="premise"></div>
+    <label class="f">New hypothesis <button class="btn small" data-reset="new_hypothesis">reset to original</button></label>
+    <textarea rows="1" data-f="new_hypothesis">${esc(r.new_hypothesis)}</textarea>
+    <div class="diff" data-diff="hypothesis"></div>
+    <div class="grid4" style="margin-top:10px">
+      <div><label class="f">Expected label${fixedLabel ? " (must stay " + esc(r.orig_label) + ")" : ""}</label>${sel("expected_label", LABELS, r.expected_label, "— choose —")}</div>
+      <div><label class="f">Edited side</label>${sel("edited_side", SIDES, r.edited_side, "—")}</div>
+      <div><label class="f">Provenance</label>${sel("provenance", PROVENANCE, r.provenance, "—")}</div>
+      <div><label class="f">Status</label>${sel("status", STATUSES, r.status || "todo")}</div>
+    </div>
+    <div class="grid2">
+      <div><label class="f">Changed span (original) <button class="btn small" data-autofill title="Fill both spans and edited side from the diff">fill from diff</button></label>
+        <input class="t" data-f="changed_span_original" value="${esc(r.changed_span_original)}"></div>
+      <div><label class="f">Changed span (new)</label><input class="t" data-f="changed_span_new" value="${esc(r.changed_span_new)}"></div>
+    </div>
+    <label class="f">Reason (why the expected label is correct)</label>
+    <textarea rows="2" data-f="reason">${esc(r.reason)}</textarea>
+    <div class="grid2">
+      <div><label class="f">Notes (e.g. label_doubt)</label><input class="t" data-f="notes" value="${esc(r.notes)}"></div>
+      <div><label class="f">Author</label><input class="t" data-f="author" value="${esc(r.author)}"></div>
+    </div>
+    <div class="msgs" data-msgs></div>
+  </div>`;
+}
+function autoGrow(t) { t.style.height = "auto"; t.style.height = t.scrollHeight + 2 + "px"; }
+function growAll() { document.querySelectorAll("#content textarea").forEach(autoGrow); }
+window.addEventListener("resize", growAll);
+
+function bindCard(card, r) {
+  card.addEventListener("input", e => {
+    const f = e.target.dataset.f; if (!f) return;
+    r[f] = e.target.value;
+    if (e.target.tagName === "TEXTAREA") autoGrow(e.target);
+    if (f === "status" && r.status !== "todo" && !norm(r.author)) fillAuthor(card, r);
+    schedule(card, r, [f]);
+    refreshCard(card, r);
+  });
+  card.addEventListener("click", e => {
+    const reset = e.target.dataset.reset;
+    if (reset) {
+      const src = reset.replace("new_", "orig_");
+      r[reset] = DATA.originals[r.orig_id]?.[src.replace("orig_", "")] ?? r[src];
+      const ta = card.querySelector(`[data-f="${reset}"]`); ta.value = r[reset]; autoGrow(ta);
+      schedule(card, r, [reset]); refreshCard(card, r); return;
+    }
+    if (e.target.hasAttribute("data-autofill")) {
+      const side = actualSide(r);
+      const blocks = [...changeBlocks(r.orig_premise, r.new_premise), ...changeBlocks(r.orig_hypothesis, r.new_hypothesis)];
+      r.changed_span_original = blocks.map(b => b.del).filter(Boolean).join(" ; ");
+      r.changed_span_new = blocks.map(b => b.ins).filter(Boolean).join(" ; ");
+      if (r.mod_type === "paraphrase" && blocks.length > 2) { r.changed_span_original = "whole sentence"; r.changed_span_new = "whole sentence"; }
+      if (side) r.edited_side = side;
+      for (const f of ["changed_span_original", "changed_span_new", "edited_side"]) card.querySelector(`[data-f="${f}"]`).value = r[f];
+      schedule(card, r, ["changed_span_original", "changed_span_new", "edited_side"]); refreshCard(card, r); return;
+    }
+    const restore = e.target.dataset.restore;
+    if (restore) {
+      const key = { orig_premise: "premise", orig_hypothesis: "hypothesis", orig_label: "gold_label" }[restore];
+      r[restore] = DATA.originals[r.orig_id][key];
+      saveNow(card, r, [restore]).then(() => { refreshCard(card, r); renderList(); });
+    }
+  });
+}
+function fillAuthor(card, r) {
+  const a = document.getElementById("author").value.trim(); if (!a) return;
+  r.author = a; card.querySelector('[data-f="author"]').value = a;
+  (pending[r.mod_id] = pending[r.mod_id] || new Set()).add("author");
+}
+function refreshCard(card, r) {
+  card.querySelector('[data-diff="premise"]').innerHTML = diffHTML(r.orig_premise, r.new_premise);
+  card.querySelector('[data-diff="hypothesis"]').innerHTML = diffHTML(r.orig_hypothesis, r.new_hypothesis);
+  const { errs, warns } = checks(r);
+  const box = card.querySelector("[data-msgs]");
+  box.innerHTML = errs.map(e => `<div class="msg err">${esc(e.text)} ${e.restore ? `<button class="btn small" data-restore="${e.restore}">restore original</button>` : ""}</div>`).join("")
+    + warns.map(w => `<div class="msg warn">${esc(w)}</div>`).join("")
+    + (!errs.length && !warns.length && actualSide(r) ? '<div class="msg ok">✓ No problems found by the automatic checks (still check the label yourself).</div>' : "");
+}
+
+function setSaved(card, cls, text) { const s = card.querySelector("[data-saved]"); if (s) { s.className = "saved " + cls; s.textContent = text; } }
+function schedule(card, r, fields) {
+  const set = (pending[r.mod_id] = pending[r.mod_id] || new Set()); fields.forEach(f => set.add(f));
+  setSaved(card, "dirty", "unsaved…");
+  clearTimeout(saveTimers[r.mod_id]);
+  saveTimers[r.mod_id] = setTimeout(() => saveNow(card, r), 600);
+}
+async function saveNow(card, r, extra = []) {
+  clearTimeout(saveTimers[r.mod_id]);
+  const set = pending[r.mod_id] || new Set(); extra.forEach(f => set.add(f)); delete pending[r.mod_id];
+  if (!set.size) return;
+  const fields = {}; set.forEach(f => fields[f] = r[f]);
+  try {
+    const res = await fetch("/api/update", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mod_id: r.mod_id, fields }) });
+    const j = await res.json();
+    if (!j.ok) throw new Error(j.error);
+    setOffline(false);
+    if (card && card.isConnected) setSaved(card, "", "saved " + new Date().toLocaleTimeString());
+    renderListSoon();
+  } catch (e) {
+    (pending[r.mod_id] = pending[r.mod_id] || new Set()); set.forEach(f => pending[r.mod_id].add(f));
+    const network = e instanceof TypeError;
+    if (network) setOffline(true);
+    if (card && card.isConnected) setSaved(card, "error", network ? "not saved: server not running (will retry)" : "save failed: " + e.message);
+  }
+}
+let retryTimer = null;
+function setOffline(off) {
+  document.getElementById("offline").hidden = !off;
+  if (off && !retryTimer) retryTimer = setInterval(() => { if (Object.keys(pending).length) flushAll(); }, 3000);
+  if (!off && retryTimer && !Object.keys(pending).length) { clearInterval(retryTimer); retryTimer = null; }
+}
+async function flushAll() {
+  const cards = [...document.querySelectorAll("[data-mod]")];
+  await Promise.all(Object.keys(pending).map(id => {
+    const r = DATA.rows.find(x => x.mod_id === id);
+    return saveNow(cards.find(c => c.dataset.mod === id), r);
+  }));
+}
+let listTimer; function renderListSoon() { clearTimeout(listTimer); listTimer = setTimeout(renderList, 250); }
+
+async function go(i) {
+  if (i < 0 || i >= GROUPS.length) return;
+  await flushAll(); cur = i; store.set("modEditor.cur", String(i)); renderMain(); renderList();
+}
+document.addEventListener("keydown", e => {
+  if (e.altKey && e.key === "ArrowRight") { e.preventDefault(); go(cur + 1); }
+  if (e.altKey && e.key === "ArrowLeft") { e.preventDefault(); go(cur - 1); }
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s") { e.preventDefault(); flushAll(); }
+});
+window.addEventListener("beforeunload", e => { if (Object.keys(pending).length) { flushAll(); e.preventDefault(); } });
+
+load().catch(e => { document.getElementById("content").textContent = "Could not load data: " + e.message; });
+</script>
+</body>
+</html>

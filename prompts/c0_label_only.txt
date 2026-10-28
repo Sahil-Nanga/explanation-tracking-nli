@@ -1,0 +1,5 @@
+Premise: {{premise}}
+Hypothesis: {{hypothesis}}
+
+Return a JSON object with exactly this key:
+{"label": "entailment" | "neutral" | "contradiction"}

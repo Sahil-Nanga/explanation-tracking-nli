@@ -1,0 +1,53 @@
+{
+  "m1": {
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+    "revision": "hosted",
+    "gpus": 0,
+    "max_model_len": 32768,
+    "time_limit": "",
+    "engine_args": [],
+    "base_url": "https://api.tokenfactory.nebius.com/v1",
+    "api_key_env": "NEBIUS_API_KEY",
+    "concurrency": 16,
+    "extra_body": {}
+  },
+  "m2": {
+    "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+    "revision": "hosted",
+    "gpus": 0,
+    "max_model_len": 32768,
+    "time_limit": "",
+    "engine_args": [],
+    "base_url": "https://api.tokenfactory.nebius.com/v1",
+    "api_key_env": "NEBIUS_API_KEY",
+    "concurrency": 16,
+    "extra_body": {}
+  },
+  "roihu_m1": {
+    "model": "Qwen/Qwen2.5-72B-Instruct",
+    "revision": "main",
+    "gpus": 2,
+    "max_model_len": 4096,
+    "time_limit": "02:00:00",
+    "extra_body": {},
+    "engine_args": []
+  },
+  "roihu_m2": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "revision": "main",
+    "gpus": 1,
+    "max_model_len": 4096,
+    "time_limit": "01:00:00",
+    "extra_body": {},
+    "engine_args": []
+  },
+  "fake": {
+    "model": "fake-model",
+    "revision": "none",
+    "gpus": 0,
+    "max_model_len": 4096,
+    "time_limit": "00:05:00",
+    "extra_body": {},
+    "engine_args": []
+  }
+}

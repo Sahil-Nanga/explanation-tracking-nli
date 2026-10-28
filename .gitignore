@@ -1,0 +1,20 @@
+venv/
+.DS_Store
+__pycache__/
+*.pyc
+*.tmp
+outputs/cache/
+data/annotations/backups/
+outputs/tmp/
+outputs/logs/
+outputs/fake.sock
+outputs/fake_server.log
+kits/
+e-SNLI/
+.env
+*.key
+.claude/
+reports/seminar_briefing_for_claude.md
+result_dev_nilesh.json
+modifications 1(Sheet 1 - modifications).csv
+data/annotations/human_eval/adjudicated.new.csv

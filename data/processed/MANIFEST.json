@@ -1,0 +1,22 @@
+{
+  "dev": {
+    "n_items": 202,
+    "sha256": "0061fde640cade51d7a6e5b21383c988fec359f894d11c031cf7fb3d6107c16b",
+    "variants": {
+      "original": 100,
+      "label_change": 34,
+      "paraphrase": 34,
+      "irrelevant_addition": 34
+    }
+  },
+  "eval": {
+    "n_items": 600,
+    "sha256": "1af2258399ccdee90c1bd108488517df569eb8e4f5f41a123da1802974202564",
+    "variants": {
+      "original": 300,
+      "label_change": 100,
+      "paraphrase": 100,
+      "irrelevant_addition": 100
+    }
+  }
+}

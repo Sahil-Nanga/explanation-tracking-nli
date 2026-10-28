@@ -1,0 +1,9 @@
+Premise: {{premise}}
+Hypothesis: {{hypothesis}}
+
+Someone wrote the following explanation about how these two sentences relate:
+"{{explanation}}"
+
+Which label does this explanation argue for? Judge only what the explanation argues, not whether it is right.
+Return a JSON object with exactly this key:
+{"label": "entailment" | "neutral" | "contradiction"}

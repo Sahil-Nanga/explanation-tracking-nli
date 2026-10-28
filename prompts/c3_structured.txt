@@ -1,0 +1,11 @@
+Premise: {{premise}}
+Hypothesis: {{hypothesis}}
+
+Give a structured answer.
+- label: the inference label.
+- premise_spans: up to 3 spans copied verbatim from the premise that support the label. Use an empty list if the premise lacks the relevant information.
+- hypothesis_spans: up to 3 spans copied verbatim from the hypothesis.
+- justification: at most 40 words explaining how the spans support the label.
+- missing_information: what the premise does not say that would be needed to decide; use "none" if nothing is missing.
+Return a JSON object with exactly these keys, in this order:
+{"label": "entailment" | "neutral" | "contradiction", "premise_spans": ["..."], "hypothesis_spans": ["..."], "justification": "<at most 40 words>", "missing_information": "<short text or none>"}

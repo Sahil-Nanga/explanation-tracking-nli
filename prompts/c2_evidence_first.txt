@@ -1,0 +1,9 @@
+Premise: {{premise}}
+Hypothesis: {{hypothesis}}
+
+First quote the relevant evidence, then explain, then give the label.
+- premise_spans: up to 3 spans copied verbatim from the premise that decide the relation. If the premise lacks the relevant information (a neutral case), use an empty list.
+- hypothesis_spans: up to 3 spans copied verbatim from the hypothesis.
+- explanation: at most 40 words explaining how the quoted spans relate. For a neutral case, say what information is missing.
+Return a JSON object with exactly these keys, in this order:
+{"premise_spans": ["..."], "hypothesis_spans": ["..."], "explanation": "<at most 40 words>", "label": "entailment" | "neutral" | "contradiction"}

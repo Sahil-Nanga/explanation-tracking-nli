@@ -1,0 +1,68 @@
+{
+  "run_id": "dev_m2_c2",
+  "run_kind": "predict",
+  "model_key": "m2",
+  "model": {
+    "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+    "revision": "hosted",
+    "gpus": 0,
+    "max_model_len": 32768,
+    "time_limit": "",
+    "engine_args": [],
+    "base_url": "https://api.tokenfactory.nebius.com/v1",
+    "api_key_env": "NEBIUS_API_KEY",
+    "concurrency": 16,
+    "extra_body": {}
+  },
+  "decoding": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 0
+  },
+  "max_tokens": {
+    "c0": 350,
+    "c1": 350,
+    "c2": 350,
+    "c3": 350,
+    "c3n": 350,
+    "verify": 450,
+    "generic": 450,
+    "probe": 60
+  },
+  "format_retries": 1,
+  "cache_salt": "",
+  "refresh": false,
+  "items_file": "/Users/sahil/Oulu Unviersity/NLP-Project/data/processed/dev_items.jsonl",
+  "items_sha256": "0061fde640cade51d7a6e5b21383c988fec359f894d11c031cf7fb3d6107c16b",
+  "n_items": 202,
+  "parse_status": {
+    "ok": 202
+  },
+  "providers": {},
+  "prompt_hashes": {
+    "system.txt": "8d6f031e05b09307",
+    "c0_label_only.txt": "7ac468bcade0d051",
+    "c1_label_first.txt": "be846c8a8f797efd",
+    "c2_evidence_first.txt": "7f46e94695d1da33",
+    "c3_structured.txt": "468ce746d93d5bd6",
+    "c3n_structured_noquote.txt": "a18fc3299bf120a1",
+    "verify_revise.txt": "3e4a5f33bc361f1d",
+    "generic_selfcheck.txt": "e1a3bdc0de81152d",
+    "probe_expl_to_label.txt": "1e21d3c20cac5bef"
+  },
+  "git_commit": null,
+  "server": {
+    "endpoint": "https://api.tokenfactory.nebius.com/v1",
+    "models": "30 models (hosted API)"
+  },
+  "started": "2026-10-26T11:22:55.500439+00:00",
+  "finished": "2026-10-26T11:23:06.847714+00:00",
+  "wall_seconds": 11.3,
+  "calls": 202,
+  "cache_hits": 0,
+  "prompt_tokens": 60422,
+  "completion_tokens": 16415,
+  "slurm": {},
+  "condition": "c2",
+  "items": "dev"
+}

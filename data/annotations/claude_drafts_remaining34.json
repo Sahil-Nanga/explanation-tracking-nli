@@ -1,0 +1,657 @@
+[
+ {
+  "orig_id": "3446484702.jpg#0r1n",
+  "label_change": {
+   "new_premise": "Elderly woman in blue apron balances a basket on her head on a sidewalk on her way to her neighbors house while talking to a woman dressed in black.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "on a sidewalk while talking",
+   "changed_span_new": "on a sidewalk on her way to her neighbors house while talking",
+   "reason": "The premise now states she is on her way to her neighbors house, which is what the hypothesis claims."
+  },
+  "paraphrase": {
+   "new_premise": "On a sidewalk, an elderly woman wearing a blue apron balances a basket on her head while chatting with a woman dressed in black.",
+   "reason": "Same scene in different words; nothing says where she is going."
+  },
+  "irrelevant_addition": {
+   "added": "The sky is overcast.",
+   "reason": "The weather says nothing about where the woman is heading."
+  }
+ },
+ {
+  "orig_id": "480653124.jpg#2r1c",
+  "label_change": {
+   "new_premise": "Three girls jumping on a street in front of a house's flower garden.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "Three girls jumping in front of",
+   "changed_span_new": "Three girls jumping on a street in front of",
+   "reason": "The girls are now jumping on a street, and jumping around is playing."
+  },
+  "paraphrase": {
+   "new_premise": "In front of a house's flower garden, three girls are jumping.",
+   "reason": "Same location (a house's flower garden), so it still conflicts with playing on a street."
+  },
+  "irrelevant_addition": {
+   "added": "The roses in the garden are red.",
+   "reason": "The colour of the roses has no bearing on whether the girls are on a street."
+  }
+ },
+ {
+  "orig_id": "4287405602.jpg#1r1e",
+  "label_change": {
+   "new_premise": "A woman cook in an apron is smiling with two other cooks in the background.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "is smiling at the camera with",
+   "changed_span_new": "is smiling with",
+   "reason": "Without 'at the camera', the premise no longer says where the woman is looking."
+  },
+  "paraphrase": {
+   "new_premise": "A female cook wearing an apron smiles at the camera while two other cooks are in the background.",
+   "reason": "She is still smiling at the camera, so she is looking at it."
+  },
+  "irrelevant_addition": {
+   "added": "The kitchen has stainless steel counters.",
+   "reason": "The counters say nothing about whether the woman looks at the camera."
+  }
+ },
+ {
+  "orig_id": "2844747252.jpg#2r1e",
+  "label_change": {
+   "new_premise": "A small dog watches two big dogs playing rough in a living room.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "in a field",
+   "changed_span_new": "in a living room",
+   "reason": "The dogs are now playing indoors, which conflicts with playing outside."
+  },
+  "paraphrase": {
+   "new_premise": "In a field, two large dogs play rough while a little dog watches.",
+   "reason": "Dogs still play in a field, so a few dogs are playing outside."
+  },
+  "irrelevant_addition": {
+   "added": "One of the big dogs wears a white collar.",
+   "reason": "A collar does not affect how many dogs are playing or where."
+  }
+ },
+ {
+  "orig_id": "487487795.jpg#1r1c",
+  "label_change": {
+   "new_premise": "A black and brown dog is lying next to a brown and white dog.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "playing with",
+   "changed_span_new": "lying next to",
+   "reason": "Lying dogs may or may not be asleep, and the premise does not say they are on the floor."
+  },
+  "paraphrase": {
+   "new_premise": "A brown and white dog plays with a dog that is black and brown.",
+   "reason": "The dogs are still playing, which conflicts with sleeping."
+  },
+  "irrelevant_addition": {
+   "added": "Their owner adopted them last summer.",
+   "reason": "When they were adopted says nothing about whether they are playing or sleeping."
+  }
+ },
+ {
+  "orig_id": "7700027818.jpg#4r1e",
+  "label_change": {
+   "new_premise": "A man cycling on road and looking miserable.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "enjoying",
+   "changed_span_new": "looking miserable",
+   "reason": "A man who looks miserable while cycling is not enjoying his bike."
+  },
+  "paraphrase": {
+   "new_premise": "A man is riding a bicycle on the road and having fun.",
+   "reason": "Riding a bicycle and having fun still means he enjoys his bike."
+  },
+  "irrelevant_addition": {
+   "added": "Some clouds are in the sky.",
+   "reason": "Clouds do not change whether the man enjoys cycling."
+  },
+  "notes": "Original hypothesis says 'his bike'; ownership is assumed as in the original label."
+ },
+ {
+  "orig_id": "482315006.jpg#0r1n",
+  "label_change": {
+   "new_premise": "A man and a woman on a date are lying together on a grassy park field near a waterfront.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "A man and a woman are lying",
+   "changed_span_new": "A man and a woman on a date are lying",
+   "reason": "The premise now states they are on a date, so they are a couple on a date lying next to each other in a park."
+  },
+  "paraphrase": {
+   "new_premise": "Near a waterfront, a man and a woman lie side by side on the grass of a park field.",
+   "reason": "Still nothing says they are a couple or on a date."
+  },
+  "irrelevant_addition": {
+   "added": "A ferry is crossing the water.",
+   "reason": "A passing ferry says nothing about whether they are on a date."
+  }
+ },
+ {
+  "orig_id": "2602827193.jpg#0r1e",
+  "label_change": {
+   "new_premise": "Picture of two men sitting silently next to the drums and a xylophone type of instrument, in a dark room with two unrecognizable people watching in the background.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "playing in a band, one playing the drums and one playing a xylophone type of instrument",
+   "changed_span_new": "sitting silently next to the drums and a xylophone type of instrument",
+   "reason": "Men sitting silently next to the instruments are not making music."
+  },
+  "paraphrase": {
+   "new_premise": "A photo of two men performing in a band in a dark room, one on drums and one on a xylophone-like instrument, while two unidentifiable people watch from the background.",
+   "reason": "Two men still play in a band, so people are making music together."
+  },
+  "irrelevant_addition": {
+   "added": "The photo was taken on a Tuesday.",
+   "reason": "The day of the photo does not affect whether they are making music."
+  }
+ },
+ {
+  "orig_id": "2428086758.jpg#4r1c",
+  "label_change": {
+   "new_premise": "The big cat is checking out the smaller cat.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "dog ; dog",
+   "changed_span_new": "cat ; cat",
+   "reason": "Now there are two cats, one big and one small, but the premise does not say they are standing together."
+  },
+  "paraphrase": {
+   "new_premise": "The larger dog is inspecting the smaller dog.",
+   "reason": "The animals are still dogs, not cats."
+  },
+  "irrelevant_addition": {
+   "added": "A ball lies in the corner.",
+   "reason": "A ball does not change the animals from dogs into cats."
+  },
+  "notes": "Label-change target is neutral because 'checking out' does not entail 'standing'; reviewer may prefer entailment."
+ },
+ {
+  "orig_id": "3024001901.jpg#2r1c",
+  "label_change": {
+   "new_premise": "A man in camouflage sitting at the top of a tree.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "working at the top of a telephone pole",
+   "changed_span_new": "in camouflage sitting at the top of a tree",
+   "reason": "A man in camouflage up a tree might be hunting in the woods, but the premise does not say so."
+  },
+  "paraphrase": {
+   "new_premise": "A man is doing work atop a telephone pole.",
+   "reason": "He is still working on a telephone pole, not hunting in the woods."
+  },
+  "irrelevant_addition": {
+   "added": "It is a Monday.",
+   "reason": "The day of the week has nothing to do with whether he is hunting in the woods."
+  }
+ },
+ {
+  "orig_id": "527288854.jpg#4r1n",
+  "label_change": {
+   "new_premise": "Man straining to climb cliff face reaches up to secure a handhold.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "Man straining to climb cliff face.",
+   "changed_span_new": "Man straining to climb cliff face reaches up to secure a handhold.",
+   "reason": "The premise now states he reaches up to secure a handhold on the cliff face."
+  },
+  "paraphrase": {
+   "new_premise": "A man is struggling to climb up a cliff face.",
+   "reason": "Struggling to climb still does not say he is reaching up for a handhold."
+  },
+  "irrelevant_addition": {
+   "added": "A river runs through the valley far below.",
+   "reason": "The river says nothing about what the man's hands are doing."
+  }
+ },
+ {
+  "orig_id": "2533733805.jpg#0r1c",
+  "label_change": {
+   "new_premise": "Three young Asian women walk on a street with traffic in the background.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "walk on a rain soaked street",
+   "changed_span_new": "walk on a street",
+   "reason": "Without 'rain soaked', the premise says nothing about whether the street is dry."
+  },
+  "paraphrase": {
+   "new_premise": "Three young Asian women are walking along a street drenched by rain, with traffic behind them.",
+   "reason": "A street drenched by rain is wet, not dry."
+  },
+  "irrelevant_addition": {
+   "added": "One of them carries a red handbag.",
+   "reason": "A handbag does not affect whether the street is wet or dry."
+  }
+ },
+ {
+  "orig_id": "4813699569.jpg#0r1e",
+  "label_change": {
+   "new_premise": "A couple sits hand-in-hand on a bench in front of Victorian-style building and a wall with a large sleeping baby painted on it.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "A couple walks hand-in-hand in front of",
+   "changed_span_new": "A couple sits hand-in-hand on a bench in front of",
+   "reason": "A couple sitting on a bench is not walking."
+  },
+  "paraphrase": {
+   "new_premise": "Holding hands, a couple walks past a Victorian-style building and a wall painted with a large sleeping baby.",
+   "reason": "The couple is still walking in front of a building."
+  },
+  "irrelevant_addition": {
+   "added": "A pigeon pecks at crumbs nearby.",
+   "reason": "A pigeon has no bearing on whether the couple walks in front of a building."
+  }
+ },
+ {
+  "orig_id": "2914022011.jpg#1r1c",
+  "label_change": {
+   "new_hypothesis": "There is a photographer taking a photo of a man outdoors.",
+   "expected_label": "entailment",
+   "edited_side": "hypothesis",
+   "changed_span_original": "indoors",
+   "changed_span_new": "outdoors",
+   "reason": "The man stands against a building in the sunlight while someone takes his picture, so a photo is being taken of him outdoors."
+  },
+  "paraphrase": {
+   "new_premise": "A man stands against a building in the sunlight, and the shadow of the person photographing him is visible.",
+   "reason": "He is still outside in the sunlight, which conflicts with being indoors."
+  },
+  "irrelevant_addition": {
+   "added": "A bicycle leans against a nearby fence.",
+   "reason": "A bicycle says nothing about whether the photo is taken indoors."
+  }
+ },
+ {
+  "orig_id": "4541666784.jpg#4r1n",
+  "label_change": {
+   "new_premise": "Tourists waiting outside of a museum to visit.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "home",
+   "changed_span_new": "museum",
+   "reason": "Tourists waiting to visit a museum are not waiting for their grandmother to let them into a home."
+  },
+  "paraphrase": {
+   "new_premise": "Tourists wait outside a home that they are going to visit.",
+   "reason": "Still nothing says whose home it is or who will let them in."
+  },
+  "irrelevant_addition": {
+   "added": "A mailbox stands by the gate.",
+   "reason": "A mailbox says nothing about who lives in the home."
+  }
+ },
+ {
+  "orig_id": "21214696.jpg#4r1e",
+  "label_change": {
+   "new_premise": "Two boys on a beach in front of a larger boat with a storm coming in.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "in a canoe",
+   "changed_span_new": "on a beach",
+   "reason": "Boys standing on a beach are not in a boat."
+  },
+  "paraphrase": {
+   "new_premise": "With a storm approaching, two boys are in a canoe ahead of a bigger boat.",
+   "reason": "The boys are still in a canoe, which is a boat."
+  },
+  "irrelevant_addition": {
+   "added": "Seagulls circle overhead.",
+   "reason": "Seagulls do not affect whether the boys are in a boat."
+  }
+ },
+ {
+  "orig_id": "2369452202.jpg#4r1n",
+  "label_change": {
+   "new_premise": "A red hot air balloon crashes down in a field among a crowd.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "lands",
+   "changed_span_new": "crashes down",
+   "reason": "The balloon now crashes down in a field, which is crashing down to earth."
+  },
+  "paraphrase": {
+   "new_premise": "A red hot air balloon touches down in a field amid a crowd.",
+   "reason": "Touching down is landing, which keeps the original contrast with crashing."
+  },
+  "irrelevant_addition": {
+   "added": "A man in the crowd is selling lemonade.",
+   "reason": "A lemonade seller does not change whether the balloon lands or crashes."
+  },
+  "notes": "ID ends in 'n' but the given label is contradiction; kept the given label. Landing vs crashing contrast is arguable."
+ },
+ {
+  "orig_id": "6314474316.jpg#1r1e",
+  "label_change": {
+   "new_premise": "There are two kilted men, one of them older, and both are holding bagpipes.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "and is holding bagpipes with the other one with a drum",
+   "changed_span_new": "and both are holding bagpipes",
+   "reason": "Both kilted men now hold bagpipes, which is what the hypothesis says."
+  },
+  "paraphrase": {
+   "new_premise": "There are two men in kilts; the older one holds bagpipes and the other holds a drum.",
+   "reason": "Only one man still holds bagpipes; the other holds a drum."
+  },
+  "irrelevant_addition": {
+   "added": "The event takes place on a Saturday.",
+   "reason": "The day does not change who is holding the bagpipes."
+  },
+  "notes": "ID ends in 'e' but the given label is contradiction; kept the given label. Hypothesis keeps the e-SNLI typo 'kiled'."
+ },
+ {
+  "orig_id": "4688306495.jpg#2r1e",
+  "label_change": {
+   "new_premise": "A patient is resting at home with no doctors or nurses around.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "being worked on by doctors and nurses",
+   "changed_span_new": "resting at home with no doctors or nurses around",
+   "reason": "Someone resting at home with no doctors around is not at the doctor."
+  },
+  "paraphrase": {
+   "new_premise": "Doctors and nurses are treating a patient.",
+   "reason": "A patient being treated by doctors is still someone at the doctor."
+  },
+  "irrelevant_addition": {
+   "added": "The parking lot outside is full.",
+   "reason": "The parking lot says nothing about whether someone is at the doctor."
+  }
+ },
+ {
+  "orig_id": "3288928346.jpg#0r1n",
+  "label_change": {
+   "new_premise": "A clown riding a very tall bicycle down the street in a parade, past a large brick building.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "Am man riding a very tall bicycle down the street",
+   "changed_span_new": "A clown riding a very tall bicycle down the street in a parade",
+   "reason": "The premise now states a clown rides a tall bicycle in a parade."
+  },
+  "paraphrase": {
+   "new_premise": "A man rides an extremely tall bicycle along the street, passing a large brick building.",
+   "reason": "Still nothing says he is a clown or that there is a parade."
+  },
+  "irrelevant_addition": {
+   "added": "The building has green doors.",
+   "reason": "Door colour says nothing about clowns or a parade."
+  },
+  "notes": "Original premise has the e-SNLI typo 'Am man'; kept in the irrelevant-addition version."
+ },
+ {
+  "orig_id": "3110050749.jpg#0r1c",
+  "label_change": {
+   "new_hypothesis": "The bubble machine is battery powered.",
+   "expected_label": "neutral",
+   "edited_side": "hypothesis",
+   "changed_span_original": "makes candy",
+   "changed_span_new": "is battery powered",
+   "reason": "The premise does not say how the bubble machine is powered."
+  },
+  "paraphrase": {
+   "new_premise": "A toddler sitting beside a slightly older girl uses a bubble machine to blow a big bubble into the air.",
+   "reason": "The machine still blows bubbles, not candy."
+  },
+  "irrelevant_addition": {
+   "added": "Their grandfather is watching the news inside.",
+   "reason": "The grandfather says nothing about what the machine makes."
+  }
+ },
+ {
+  "orig_id": "2733659177.jpg#2r1e",
+  "label_change": {
+   "new_premise": "Two boys wearing yellow shirts and blue pants are climbing a tree in a hilly area.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "A boy wearing a yellow shirt and blue pants is",
+   "changed_span_new": "Two boys wearing yellow shirts and blue pants are",
+   "reason": "Quantity edit: two boys conflicts with there being one child in the picture."
+  },
+  "paraphrase": {
+   "new_premise": "In a hilly area, a boy dressed in a yellow shirt and blue pants climbs a tree.",
+   "reason": "Still one boy climbing a tree outdoors."
+  },
+  "irrelevant_addition": {
+   "added": "The tree is an oak.",
+   "reason": "The kind of tree does not change the number of children or that he is outside."
+  },
+  "notes": "Quantity edit."
+ },
+ {
+  "orig_id": "5793422010.jpg#1r1n",
+  "label_change": {
+   "new_premise": "Four women standing around a yellow table are looking at laptops while shopping for a new one.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "are looking at laptops.",
+   "changed_span_new": "are looking at laptops while shopping for a new one.",
+   "reason": "The premise now states the women are shopping for a new laptop."
+  },
+  "paraphrase": {
+   "new_premise": "Four women gathered around a yellow table are viewing laptops.",
+   "reason": "Still nothing says they are shopping for a laptop."
+  },
+  "irrelevant_addition": {
+   "added": "A potted plant sits in the corner.",
+   "reason": "A plant says nothing about whether they are shopping."
+  }
+ },
+ {
+  "orig_id": "3404408360.jpg#1r1n",
+  "label_change": {
+   "new_premise": "Adults share in the looking at something, and some young ladies stand to the side.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "Adults and children",
+   "changed_span_new": "Adults",
+   "reason": "Children are no longer mentioned, so we cannot tell whether any children are looking."
+  },
+  "paraphrase": {
+   "new_premise": "Adults and kids are looking at something together, while some young women stand off to the side.",
+   "reason": "Kids are still looking, so some children are looking."
+  },
+  "irrelevant_addition": {
+   "added": "A bird is perched on a nearby fence.",
+   "reason": "A bird does not change whether the children are looking."
+  },
+  "notes": "ID ends in 'n' but the given label is entailment; kept the given label."
+ },
+ {
+  "orig_id": "2412281172.jpg#0r1e",
+  "label_change": {
+   "new_premise": "Young people and a kid are walking on the beach in a sunny day.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "in the forest",
+   "changed_span_new": "on the beach",
+   "reason": "Walking on the beach conflicts with walking in the forest."
+  },
+  "paraphrase": {
+   "new_premise": "On a sunny day, a kid and some young people are walking through the forest.",
+   "reason": "They are still walking in the forest."
+  },
+  "irrelevant_addition": {
+   "added": "One of them is wearing a green cap.",
+   "reason": "A cap does not affect who is walking or where."
+  }
+ },
+ {
+  "orig_id": "4555587051.jpg#0r1c",
+  "label_change": {
+   "new_premise": "Five People are sitting around a table, and one man is approaching with his arm raised into the air.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "kneeling between two park cars",
+   "changed_span_new": "sitting around a table",
+   "reason": "Six people around a table could be playing poker, but the premise does not say what they are doing."
+  },
+  "paraphrase": {
+   "new_premise": "Five people kneel between two parked cars while a man approaches with his arm raised in the air.",
+   "reason": "People kneeling between cars are still not having a normal poker game."
+  },
+  "irrelevant_addition": {
+   "added": "One of the cars is silver.",
+   "reason": "The car colour says nothing about a poker game."
+  },
+  "notes": "Neutral target is a judgement call; the raised arm makes 'absolutely normal' uncertain rather than false."
+ },
+ {
+  "orig_id": "229978782.jpg#4r1e",
+  "label_change": {
+   "new_premise": "Two women and a Frisbee",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "men",
+   "changed_span_new": "women",
+   "reason": "Two women conflicts with two men."
+  },
+  "paraphrase": {
+   "new_premise": "A Frisbee and two men.",
+   "reason": "Still two men with a Frisbee, which is a toy."
+  },
+  "irrelevant_addition": {
+   "added": "The grass has just been mowed.",
+   "reason": "The grass says nothing about the men or the toy."
+  },
+  "notes": "Original premise has no final period; kept that way in the label-changing edit."
+ },
+ {
+  "orig_id": "4608742964.jpg#4r1n",
+  "label_change": {
+   "new_premise": "Three people are riding a carriage pulled by four large, well-fed horses.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "pulled by four horses",
+   "changed_span_new": "pulled by four large, well-fed horses",
+   "reason": "Well-fed horses are not scrawny."
+  },
+  "paraphrase": {
+   "new_premise": "A carriage drawn by four horses is carrying three people.",
+   "reason": "Still nothing about the horses' build."
+  },
+  "irrelevant_addition": {
+   "added": "The carriage has red wheels.",
+   "reason": "The wheels say nothing about whether the horses are scrawny."
+  }
+ },
+ {
+  "orig_id": "307694980.jpg#2r1c",
+  "label_change": {
+   "new_premise": "A female covering her face at the dinner table.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "covering her face in laughter at the dinner table",
+   "changed_span_new": "covering her face at the dinner table",
+   "reason": "Without the laughter, she may or may not be sitting silently."
+  },
+  "paraphrase": {
+   "new_premise": "A woman laughing at the dinner table hides her face.",
+   "reason": "She is still laughing, which conflicts with sitting silently."
+  },
+  "irrelevant_addition": {
+   "added": "There is a vase of tulips on the table.",
+   "reason": "The flowers do not change whether she is laughing."
+  }
+ },
+ {
+  "orig_id": "2878041967.jpg#1r1n",
+  "label_change": {
+   "new_premise": "Children, including one with a painted face, pet tiny turtles that are crawling in the light green grass.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "green grass",
+   "changed_span_new": "light green grass",
+   "reason": "The premise now says the grass is light green."
+  },
+  "paraphrase": {
+   "new_premise": "Children, one of whom has a painted face, are petting tiny turtles crawling through the green grass.",
+   "reason": "The grass is still only 'green', not 'light green'."
+  },
+  "irrelevant_addition": {
+   "added": "A dog barks in the distance.",
+   "reason": "A barking dog says nothing about the shade of the grass."
+  }
+ },
+ {
+  "orig_id": "4018050099.jpg#1r1n",
+  "label_change": {
+   "new_premise": "A small child with a backpack walks home from school down a narrow road next to a painted wall.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "walks down a narrow road",
+   "changed_span_new": "walks home from school down a narrow road",
+   "reason": "The premise now states the child is walking home from school."
+  },
+  "paraphrase": {
+   "new_premise": "A little kid carrying a backpack is walking along a narrow road beside a painted wall.",
+   "reason": "Still nothing says where the child is coming from."
+  },
+  "irrelevant_addition": {
+   "added": "A cat sits on top of the wall.",
+   "reason": "A cat says nothing about whether the child is coming from school."
+  }
+ },
+ {
+  "orig_id": "2939116460.jpg#0r1c",
+  "label_change": {
+   "new_premise": "Blond-haired girl wearing a bicycle helmet, a black t-shirt that reads 'Twizzlers' and a printed dog tag necklace around her neck, standing next to two men in suits.",
+   "expected_label": "neutral",
+   "edited_side": "premise",
+   "changed_span_original": "around her neck.",
+   "changed_span_new": "around her neck, standing next to two men in suits.",
+   "reason": "Two men in suits are now present, but the premise does not say they are posing."
+  },
+  "paraphrase": {
+   "new_premise": "A girl with blond hair is wearing a bicycle helmet, a black 'Twizzlers' t-shirt, and a printed dog tag necklace.",
+   "reason": "The picture still shows a girl, not two men in suits."
+  },
+  "irrelevant_addition": {
+   "added": "The weather is mild.",
+   "reason": "The weather says nothing about who is in the picture."
+  }
+ },
+ {
+  "orig_id": "3887721909.jpg#0r1e",
+  "label_change": {
+   "new_premise": "Two ladies in matching dresses and shoes, both wearing straw hats, are reading newspapers on a bench next to a rolling suitcase.",
+   "expected_label": "contradiction",
+   "edited_side": "premise",
+   "changed_span_original": "straw hats pulled down over their faces, are napping",
+   "changed_span_new": "straw hats, are reading newspapers",
+   "reason": "Ladies reading newspapers are awake, so they are not napping."
+  },
+  "paraphrase": {
+   "new_premise": "Two women in matching dresses and shoes are taking a nap on a bench beside a rolling suitcase, their straw hats pulled down over their faces.",
+   "reason": "They are still napping on a bench."
+  },
+  "irrelevant_addition": {
+   "added": "A train arrives at the far platform.",
+   "reason": "A train arriving does not change whether the ladies are napping."
+  }
+ },
+ {
+  "orig_id": "4436813115.jpg#1r1n",
+  "label_change": {
+   "new_premise": "A male sculptor wearing yellow headphones is cutting stone.",
+   "expected_label": "entailment",
+   "edited_side": "premise",
+   "changed_span_original": "A sculptor",
+   "changed_span_new": "A male sculptor",
+   "reason": "A male sculptor is a man, and a sculptor is an artist."
+  },
+  "paraphrase": {
+   "new_premise": "A sculptor in yellow headphones is carving stone.",
+   "reason": "The sculptor's gender is still not given."
+  },
+  "irrelevant_addition": {
+   "added": "Dust covers the floor of the workshop.",
+   "reason": "Dust says nothing about the sculptor's gender."
+  }
+ }
+]

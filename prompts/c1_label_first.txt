@@ -1,0 +1,6 @@
+Premise: {{premise}}
+Hypothesis: {{hypothesis}}
+
+First give the label, then a short explanation of at most 40 words.
+Return a JSON object with exactly these keys, in this order:
+{"label": "entailment" | "neutral" | "contradiction", "explanation": "<at most 40 words>"}

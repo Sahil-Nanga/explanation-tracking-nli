@@ -1,0 +1,19 @@
+{
+  "decoding": {"temperature": 0.0, "top_p": 1.0, "seed": 0},
+  "max_tokens": {
+    "c0": 350, "c1": 350, "c2": 350, "c3": 350, "c3n": 350,
+    "verify": 450, "generic": 450,
+    "probe": 60
+  },
+  "model_roles": {"large": "m1", "small": "m2"},
+  "conditions": ["c0", "c1", "c2", "c3", "c3n"],
+  "explanation_conditions": ["c1", "c2", "c3", "c3n"],
+  "span_conditions": ["c2", "c3"],
+  "revision_bases": ["c2", "c3"],
+  "revision_methods": ["verify", "generic"],
+  "intervention_conditions": ["c2", "c3"],
+  "concurrency": 96,
+  "format_retries": 1,
+  "bootstrap_reps": 10000,
+  "seed": 42
+}

@@ -1,0 +1,20 @@
+Premise: {{premise}}
+Hypothesis: {{hypothesis}}
+
+A system answered this inference problem as follows.
+Predicted label: {{label}}
+Quoted premise spans: {{premise_spans}}
+Quoted hypothesis spans: {{hypothesis_spans}}
+Explanation: {{explanation}}
+
+Automatic check of the quotes (exact text match):
+{{span_report}}
+
+Verify the answer by checking each point:
+1. spans_exist: do all quoted spans occur in the sentence they are quoted from?
+2. supports_label: does the explanation support the predicted label?
+3. adds_unstated_facts: does the explanation rely on facts that are not in the premise or hypothesis?
+4. confuses_missing_with_contradiction: does it treat information that is merely missing as a contradiction (or as entailment)?
+If the answer passes all checks, keep it. Otherwise revise the label and/or the evidence and explanation (explanation at most 40 words; spans copied verbatim).
+Return a JSON object with exactly these keys, in this order:
+{"spans_exist": true | false, "supports_label": true | false, "adds_unstated_facts": true | false, "confuses_missing_with_contradiction": true | false, "decision": "keep" | "revise", "label": "entailment" | "neutral" | "contradiction", "premise_spans": ["..."], "hypothesis_spans": ["..."], "explanation": "<at most 40 words>"}

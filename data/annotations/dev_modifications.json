@@ -1,0 +1,1659 @@
+[
+ {
+  "id": "5332472316.jpg#3r1n__label_change",
+  "original_id": "5332472316.jpg#3r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A family of two females and one male is looking at various merchandise in a store window.",
+  "hypothesis": "A family is window shopping together.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Two females and one male looking at various merchandise.",
+   "new": "A family of two females and one male is looking at various merchandise in a store window."
+  },
+  "label_reason": "Adding that they are a family looking into a store window entails that a family is window shopping together.",
+  "status": "approved"
+ },
+ {
+  "id": "5332472316.jpg#3r1n__paraphrase",
+  "original_id": "5332472316.jpg#3r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A man and two women are browsing through various items on display.",
+  "hypothesis": "A family is window shopping together.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Two females and one male looking at various merchandise.",
+   "new": "A man and two women are browsing through various items on display."
+  },
+  "label_reason": "The sentence is rephrased while retaining its exact meaning.",
+  "status": "approved"
+ },
+ {
+  "id": "5332472316.jpg#3r1n__irrelevant_info",
+  "original_id": "5332472316.jpg#3r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Two females and one male wearing winter jackets are looking at various merchandise.",
+  "hypothesis": "A family is window shopping together.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Two females and one male looking at various merchandise.",
+   "new": "Two females and one male wearing winter jackets are looking at various merchandise."
+  },
+  "label_reason": "Adding clothing detail does not change the truth value of the relationship.",
+  "status": "approved"
+ },
+ {
+  "id": "2308491551.jpg#1r1c__label_change",
+  "original_id": "2308491551.jpg#1r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Three glass elevators with no people inside of them.",
+  "hypothesis": "A clown washing windows.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "people inside of them",
+   "new": "no people inside of them"
+  },
+  "label_reason": "Removing the people from the elevators makes the clown washing windows claim neutral rather than a direct physical contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "2308491551.jpg#1r1c__paraphrase",
+  "original_id": "2308491551.jpg#1r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Three transparent elevator cabs with passengers inside.",
+  "hypothesis": "A clown washing windows.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "Three glass elevators with people inside of them.",
+   "new": "Three transparent elevator cabs with passengers inside."
+  },
+  "label_reason": "Rephrased words while maintaining identical semantic meaning.",
+  "status": "approved"
+ },
+ {
+  "id": "2308491551.jpg#1r1c__irrelevant_info",
+  "original_id": "2308491551.jpg#1r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Three glass elevators with people inside of them in a modern shopping mall lobby.",
+  "hypothesis": "A clown washing windows.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "Three glass elevators with people inside of them.",
+   "new": "Three glass elevators with people inside of them in a modern shopping mall lobby."
+  },
+  "label_reason": "Location context adds irrelevant detail without changing the contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "2313551145.jpg#1r1n__label_change",
+  "original_id": "2313551145.jpg#1r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "The side of a building next to a church is painted with a brightly colored Coca-Cola sign because the owner is leasing out advertising space.",
+  "hypothesis": "The owner of a building is leasing out advertising space.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "The side of a building next to a church is painted with a brightly colored Coca-Cola sign.",
+   "new": "The side of a building next to a church is painted with a brightly colored Coca-Cola sign because the owner is leasing out advertising space."
+  },
+  "label_reason": "Explicitly adding that the owner is leasing advertising space changes the gold label from neutral to entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "2313551145.jpg#1r1n__paraphrase",
+  "original_id": "2313551145.jpg#1r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Adjacent to a church, the exterior wall of a building features a vivid Coca-Cola advertisement.",
+  "hypothesis": "The owner of a building is leasing out advertising space.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "The side of a building next to a church is painted with a brightly colored Coca-Cola sign.",
+   "new": "Adjacent to a church, the exterior wall of a building features a vivid Coca-Cola advertisement."
+  },
+  "label_reason": "Rephrased words while preserving neutral entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "2313551145.jpg#1r1n__irrelevant_info",
+  "original_id": "2313551145.jpg#1r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "The side of a brick building next to an old stone church is painted with a brightly colored Coca-Cola sign.",
+  "hypothesis": "The owner of a building is leasing out advertising space.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "The side of a building next to a church is painted with a brightly colored Coca-Cola sign.",
+   "new": "The side of a brick building next to an old stone church is painted with a brightly colored Coca-Cola sign."
+  },
+  "label_reason": "Added material information about the building and church.",
+  "status": "approved"
+ },
+ {
+  "id": "238269802.jpg#3r1n__label_change",
+  "original_id": "238269802.jpg#3r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A little boy playing hide and seek in the woods is sitting on a stump in a forest clearing.",
+  "hypothesis": "a little boy is playing hide and seek in the woods",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A small child is sitting on a stump in a forest clearing.",
+   "new": "A little boy playing hide and seek in the woods is sitting on a stump in a forest clearing."
+  },
+  "label_reason": "Clarifying that the boy is playing hide and seek turns the relationship into an entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "238269802.jpg#3r1n__paraphrase",
+  "original_id": "238269802.jpg#3r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A young kid is perched on a tree stump within an open area of a forest.",
+  "hypothesis": "a little boy is playing hide and seek in the woods",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A small child is sitting on a stump in a forest clearing.",
+   "new": "A young kid is perched on a tree stump within an open area of a forest."
+  },
+  "label_reason": "Synonymous phrasing used.",
+  "status": "approved"
+ },
+ {
+  "id": "238269802.jpg#3r1n__irrelevant_info",
+  "original_id": "238269802.jpg#3r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A small child wearing green rubber boots is sitting on a stump in a forest clearing.",
+  "hypothesis": "a little boy is playing hide and seek in the woods",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A small child is sitting on a stump in a forest clearing.",
+   "new": "A small child wearing green rubber boots is sitting on a stump in a forest clearing."
+  },
+  "label_reason": "Details on clothing do not affect the original claim.",
+  "status": "approved"
+ },
+ {
+  "id": "4662948361.jpg#2r1c__label_change",
+  "original_id": "4662948361.jpg#2r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "An orange car is driving on the highway towards the country-side.",
+  "hypothesis": "A car is driving on the highway towards the country-side.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "An orange car is driving across a steel bridge in a city.",
+   "new": "An orange car is driving on the highway towards the country-side."
+  },
+  "label_reason": "Updating premise to match destination makes the statement entailed.",
+  "status": "approved"
+ },
+ {
+  "id": "4662948361.jpg#2r1c__paraphrase",
+  "original_id": "4662948361.jpg#2r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A vehicle of orange color moves across a steel structure bridge within urban limits.",
+  "hypothesis": "A car is driving on the highway towards the country-side.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "An orange car is driving across a steel bridge in a city.",
+   "new": "A vehicle of orange color moves across a steel structure bridge within urban limits."
+  },
+  "label_reason": "Rephrased premise while keeping same meaning.",
+  "status": "approved"
+ },
+ {
+  "id": "4662948361.jpg#2r1c__irrelevant_info",
+  "original_id": "4662948361.jpg#2r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "An orange car with tinted windows is driving across a steel bridge in a city.",
+  "hypothesis": "A car is driving on the highway towards the country-side.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "An orange car is driving across a steel bridge in a city.",
+   "new": "An orange car with tinted windows is driving across a steel bridge in a city."
+  },
+  "label_reason": "Tinted windows detail added, label remains contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "2867459095.jpg#2r1n__label_change",
+  "original_id": "2867459095.jpg#2r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A male musician is playing guitar for a show on stage specifically dedicated to his ex girlfriend.",
+  "hypothesis": "Man putting on a show for his ex girlfriend",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A male musician is playing guitar for a show on stage.",
+   "new": "A male musician is playing guitar for a show on stage specifically dedicated to his ex girlfriend."
+  },
+  "label_reason": "Specifying the show is for his ex-girlfriend converts the neutral statement to entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "2867459095.jpg#2r1n__paraphrase",
+  "original_id": "2867459095.jpg#2r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A male guitarist is performing live during a concert on a stage.",
+  "hypothesis": "Man putting on a show for his ex girlfriend",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A male musician is playing guitar for a show on stage.",
+   "new": "A male guitarist is performing live during a concert on a stage."
+  },
+  "label_reason": "Paraphrased sentence retaining identical neutral meaning.",
+  "status": "approved"
+ },
+ {
+  "id": "2867459095.jpg#2r1n__irrelevant_info",
+  "original_id": "2867459095.jpg#2r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A male musician with long brown hair is playing guitar for a show on stage.",
+  "hypothesis": "Man putting on a show for his ex girlfriend",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A male musician is playing guitar for a show on stage.",
+   "new": "A male musician with long brown hair is playing guitar for a show on stage."
+  },
+  "label_reason": "Added cosmetic details about hair color.",
+  "status": "approved"
+ },
+ {
+  "id": "3573269476.jpg#4r1n__label_change",
+  "original_id": "3573269476.jpg#4r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Three men are getting out of their shady van.",
+  "hypothesis": "A group of three men leave their shady van.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Three people getting out a van.",
+   "new": "Three men are getting out of their shady van."
+  },
+  "label_reason": "Specifying gender and type of van changes label from neutral to entailment.",
+  "status": "approved",
+  "provenance": {
+   "model": "claude-sonnet-5-5",
+   "temperature": 0.3,
+   "attempts": 1
+  }
+ },
+ {
+  "id": "3573269476.jpg#4r1n__paraphrase",
+  "original_id": "3573269476.jpg#4r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A trio of individuals stepping outside of a van.",
+  "hypothesis": "A group of three men leave their shady van.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Three people getting out a van.",
+   "new": "A trio of individuals stepping outside of a van."
+  },
+  "label_reason": "Rephrased words while maintaining neutral context.",
+  "status": "approved",
+  "provenance": {
+   "model": "claude-sonnet-5-5",
+   "temperature": 0.3,
+   "attempts": 1
+  }
+ },
+ {
+  "id": "3573269476.jpg#4r1n__irrelevant_info",
+  "original_id": "3573269476.jpg#4r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Three people getting out a white van parked near a sidewalk.",
+  "hypothesis": "A group of three men leave their shady van.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Three people getting out a van.",
+   "new": "Three people getting out a white van parked near a sidewalk."
+  },
+  "label_reason": "Added vehicle color and parking spot details.",
+  "status": "approved",
+  "provenance": {
+   "model": "claude-sonnet-5-5",
+   "temperature": 0.3,
+   "attempts": 1
+  }
+ },
+ {
+  "id": "6526560433.jpg#1r1n__label_change",
+  "original_id": "6526560433.jpg#1r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A football player in a black uniform appears ready to tackle an opponent in a white uniform who is in possession of the ball right at the endzone, about to score a touchdown.",
+  "hypothesis": "The football player in the white uniform is about to make a touchdown.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A football player in a black uniform appears ready to tackle an opponent in a white uniform who is in possession of the ball.",
+   "new": "A football player in a black uniform appears ready to tackle an opponent in a white uniform who is in possession of the ball right at the endzone, about to score a touchdown."
+  },
+  "label_reason": "Adding endzone context explicitly entails making a touchdown.",
+  "status": "approved",
+  "provenance": {
+   "model": "claude-sonnet-5-5",
+   "temperature": 0.3,
+   "attempts": 1
+  }
+ },
+ {
+  "id": "6526560433.jpg#1r1n__paraphrase",
+  "original_id": "6526560433.jpg#1r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "An athlete wearing a black football gear prepares to bring down a ball-carrying opponent dressed in a white kit.",
+  "hypothesis": "The football player in the white uniform is about to make a touchdown.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A football player in a black uniform appears ready to tackle an opponent in a white uniform who is in possession of the ball.",
+   "new": "An athlete wearing a black football gear prepares to bring down a ball-carrying opponent dressed in a white kit."
+  },
+  "label_reason": "Synonymous restatement of sports context.",
+  "status": "approved",
+  "provenance": {
+   "model": "claude-sonnet-5-5",
+   "temperature": 0.3,
+   "attempts": 1
+  }
+ },
+ {
+  "id": "6526560433.jpg#1r1n__irrelevant_info",
+  "original_id": "6526560433.jpg#1r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A football player in a black uniform under bright stadium lights appears ready to tackle an opponent in a white uniform who is in possession of the ball.",
+  "hypothesis": "The football player in the white uniform is about to make a touchdown.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A football player in a black uniform appears ready to tackle an opponent in a white uniform who is in possession of the ball.",
+   "new": "A football player in a black uniform under bright stadium lights appears ready to tackle an opponent in a white uniform who is in possession of the ball."
+  },
+  "label_reason": "Added stadium lighting detail.",
+  "status": "approved"
+ },
+ {
+  "id": "4981398759.jpg#1r1c__label_change",
+  "original_id": "4981398759.jpg#1r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A man and woman in swimsuits are swimming together in the ocean.",
+  "hypothesis": "A man and woman are swimming in the ocean.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A woman in a jacket and scarf looking a table that a man in a black shirt is cooking something on.",
+   "new": "A man and woman in swimsuits are swimming together in the ocean."
+  },
+  "label_reason": "Replacing cooking activity with ocean swimming changes label to entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "4981398759.jpg#1r1c__paraphrase",
+  "original_id": "4981398759.jpg#1r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Wearing a jacket and scarf, a woman watches a table where a male in a black t-shirt prepares food.",
+  "hypothesis": "A man and woman are swimming in the ocean.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A woman in a jacket and scarf looking a table that a man in a black shirt is cooking something on.",
+   "new": "Wearing a jacket and scarf, a woman watches a table where a male in a black t-shirt prepares food."
+  },
+  "label_reason": "Paraphrased sentence while retaining contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "4981398759.jpg#1r1c__irrelevant_info",
+  "original_id": "4981398759.jpg#1r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A woman in a red jacket and scarf looking a table that a man in a black shirt is cooking something on.",
+  "hypothesis": "A man and woman are swimming in the ocean.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A woman in a jacket and scarf looking a table that a man in a black shirt is cooking something on.",
+   "new": "A woman in a red jacket and scarf looking a table that a man in a black shirt is cooking something on."
+  },
+  "label_reason": "Added specific jacket color ('red').",
+  "status": "approved"
+ },
+ {
+  "id": "4782588680.jpg#0r1n__label_change",
+  "original_id": "4782588680.jpg#0r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Man in white shirt and blue jeans looking to the side while approaching another man on a busy sidewalk.",
+  "hypothesis": "A man is approaching another man.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Man in white shirt and blue jeans looking to the side while walking down a busy sidewalk.",
+   "new": "Man in white shirt and blue jeans looking to the side while approaching another man on a busy sidewalk."
+  },
+  "label_reason": "Adding that he is approaching another man creates entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "4782588680.jpg#0r1n__paraphrase",
+  "original_id": "4782588680.jpg#0r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A guy wearing a white shirt and blue denim pants glances sideways while strolling along a crowded walkway.",
+  "hypothesis": "A man is approaching another man.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Man in white shirt and blue jeans looking to the side while walking down a busy sidewalk.",
+   "new": "A guy wearing a white shirt and blue denim pants glances sideways while strolling along a crowded walkway."
+  },
+  "label_reason": "Rephrased words preserving neutral logic.",
+  "status": "approved"
+ },
+ {
+  "id": "4782588680.jpg#0r1n__irrelevant_info",
+  "original_id": "4782588680.jpg#0r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Man in white shirt and blue jeans holding a cup of coffee looking to the side while walking down a busy sidewalk.",
+  "hypothesis": "A man is approaching another man.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Man in white shirt and blue jeans looking to the side while walking down a busy sidewalk.",
+   "new": "Man in white shirt and blue jeans holding a cup of coffee looking to the side while walking down a busy sidewalk."
+  },
+  "label_reason": "Added detail about coffee cup.",
+  "status": "approved"
+ },
+ {
+  "id": "35437191.jpg#1r1c__label_change",
+  "original_id": "35437191.jpg#1r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A man with a mustache who is wearing white and beige lies on a towel sun bathing.",
+  "hypothesis": "A man sun bathing",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A man with a mustache who is wearing white and beige carefully sculpts a sand castle.",
+   "new": "A man with a mustache who is wearing white and beige lies on a towel sun bathing."
+  },
+  "label_reason": "Changing sculpting a sand castle to sun bathing turns contradiction into entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "35437191.jpg#1r1c__paraphrase",
+  "original_id": "35437191.jpg#1r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Dressed in white and beige attire, a mustachioed male attentively builds a structure out of sand.",
+  "hypothesis": "A man sun bathing",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A man with a mustache who is wearing white and beige carefully sculpts a sand castle.",
+   "new": "Dressed in white and beige attire, a mustachioed male attentively builds a structure out of sand."
+  },
+  "label_reason": "Paraphrased sentence retaining contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "35437191.jpg#1r1c__irrelevant_info",
+  "original_id": "35437191.jpg#1r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A man with a mustache wearing sunglasses who is wearing white and beige carefully sculpts a sand castle.",
+  "hypothesis": "A man sun bathing",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A man with a mustache who is wearing white and beige carefully sculpts a sand castle.",
+   "new": "A man with a mustache wearing sunglasses who is wearing white and beige carefully sculpts a sand castle."
+  },
+  "label_reason": "Added detail about sunglasses.",
+  "status": "approved"
+ },
+ {
+  "id": "2425532035.jpg#1r1e__label_change",
+  "original_id": "2425532035.jpg#1r1e",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A young boy wearing crocs sits quietly reading a book on a large lawn overlooking a town.",
+  "hypothesis": "A kid was hitting golf balls.",
+  "gold_label": "contradiction",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A young boy wearing crocs tries to hit yellow golf balls into a large lawn overlooking a town.",
+   "new": "A young boy wearing crocs sits quietly reading a book on a large lawn overlooking a town."
+  },
+  "label_reason": "Reading a book contradicts hitting golf balls.",
+  "status": "approved"
+ },
+ {
+  "id": "2425532035.jpg#1r1e__paraphrase",
+  "original_id": "2425532035.jpg#1r1e",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A young child in crocs attempts to strike yellow golf balls towards a spacious yard with a view of a town.",
+  "hypothesis": "A kid was hitting golf balls.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A young boy wearing crocs tries to hit yellow golf balls into a large lawn overlooking a town.",
+   "new": "A young child in crocs attempts to strike yellow golf balls towards a spacious yard with a view of a town."
+  },
+  "label_reason": "Paraphrased with identical logical implication.",
+  "status": "approved"
+ },
+ {
+  "id": "2425532035.jpg#1r1e__irrelevant_info",
+  "original_id": "2425532035.jpg#1r1e",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A young boy wearing green crocs tries to hit yellow golf balls into a large lawn overlooking a town.",
+  "hypothesis": "A kid was hitting golf balls.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A young boy wearing crocs tries to hit yellow golf balls into a large lawn overlooking a town.",
+   "new": "A young boy wearing green crocs tries to hit yellow golf balls into a large lawn overlooking a town."
+  },
+  "label_reason": "Adding footwear color ('green') is irrelevant.",
+  "status": "approved"
+ },
+ {
+  "id": "5491397203.jpg#2r1c__label_change",
+  "original_id": "5491397203.jpg#2r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A man wearing a baseball cap forwards, black shirt and blue shorts behind the steering wheel of a boat with a flag behind him.",
+  "hypothesis": "The cap is forwards.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A man in a backwards baseball cap, black shirt and blue shorts behind the steering wheel of a boat with a flag behind him.",
+   "new": "A man wearing a baseball cap forwards, black shirt and blue shorts behind the steering wheel of a boat with a flag behind him."
+  },
+  "label_reason": "Changing cap orientation from backwards to forwards makes hypothesis entailed.",
+  "status": "approved"
+ },
+ {
+  "id": "5491397203.jpg#2r1c__paraphrase",
+  "original_id": "5491397203.jpg#2r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "At the wheel of a vessel with a flag, a male wears a black shirt, blue shorts, and a cap facing backward.",
+  "hypothesis": "The cap is forwards.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A man in a backwards baseball cap, black shirt and blue shorts behind the steering wheel of a boat with a flag behind him.",
+   "new": "At the wheel of a vessel with a flag, a male wears a black shirt, blue shorts, and a cap facing backward."
+  },
+  "label_reason": "Rephrased words preserving contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "5491397203.jpg#2r1c__irrelevant_info",
+  "original_id": "5491397203.jpg#2r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A man in a backwards baseball cap, black shirt and blue shorts behind the steering wheel of a wooden boat with a flag behind him.",
+  "hypothesis": "The cap is forwards.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A man in a backwards baseball cap, black shirt and blue shorts behind the steering wheel of a boat with a flag behind him.",
+   "new": "A man in a backwards baseball cap, black shirt and blue shorts behind the steering wheel of a wooden boat with a flag behind him."
+  },
+  "label_reason": "Added boat material ('wooden').",
+  "status": "approved"
+ },
+ {
+  "id": "3192266178.jpg#0r1n__label_change",
+  "original_id": "3192266178.jpg#0r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A man in blue with a black hat beneath a tree in a park, spending time with his dog leaping at him.",
+  "hypothesis": "A man in a black hat spending time with his dog beneth tree in a park.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A man in blue with a black hat with a dog leaping at him in a park-like setting.",
+   "new": "A man in blue with a black hat beneath a tree in a park, spending time with his dog leaping at him."
+  },
+  "label_reason": "Specifying the tree location and ownership converts neutral relationship into entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "3192266178.jpg#0r1n__paraphrase",
+  "original_id": "3192266178.jpg#0r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "In an area resembling a park, a canine jumps toward a male wearing blue clothes and a dark head cover.",
+  "hypothesis": "A man in a black hat spending time with his dog beneth tree in a park.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A man in blue with a black hat with a dog leaping at him in a park-like setting.",
+   "new": "In an area resembling a park, a canine jumps toward a male wearing blue clothes and a dark head cover."
+  },
+  "label_reason": "Rephrased sentence while retaining neutral label.",
+  "status": "approved"
+ },
+ {
+  "id": "3192266178.jpg#0r1n__irrelevant_info",
+  "original_id": "3192266178.jpg#0r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A man in blue jeans with a black hat with a dog leaping at him in a park-like setting.",
+  "hypothesis": "A man in a black hat spending time with his dog beneth tree in a park.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A man in blue with a black hat with a dog leaping at him in a park-like setting.",
+   "new": "A man in blue jeans with a black hat with a dog leaping at him in a park-like setting."
+  },
+  "label_reason": "Added specific garment detail ('blue jeans').",
+  "status": "approved"
+ },
+ {
+  "id": "3103292929.jpg#1r1n__label_change",
+  "original_id": "3103292929.jpg#1r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A man with stubble on his face is holding a baby that is crying.",
+  "hypothesis": "The baby is being held by the man with the stubble on his face and is crying",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A man with stubble on his face is holding a baby.",
+   "new": "A man with stubble on his face is holding a baby that is crying."
+  },
+  "label_reason": "Explicitly mentioning that the baby is crying turns neutral label into entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "3103292929.jpg#1r1n__paraphrase",
+  "original_id": "3103292929.jpg#1r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "An infant is being cradled by an unshaven guy.",
+  "hypothesis": "The baby is being held by the man with the stubble on his face and is crying",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A man with stubble on his face is holding a baby.",
+   "new": "An infant is being cradled by an unshaven guy."
+  },
+  "label_reason": "Synonymous phrasing used while preserving meaning.",
+  "status": "approved"
+ },
+ {
+  "id": "3103292929.jpg#1r1n__irrelevant_info",
+  "original_id": "3103292929.jpg#1r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A man with stubble on his face wearing a grey sweater is holding a baby.",
+  "hypothesis": "The baby is being held by the man with the stubble on his face and is crying",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "A man with stubble on his face is holding a baby.",
+   "new": "A man with stubble on his face wearing a grey sweater is holding a baby."
+  },
+  "label_reason": "Added sweater color detail.",
+  "status": "approved"
+ },
+ {
+  "id": "3186338070.jpg#2r1c__label_change",
+  "original_id": "3186338070.jpg#2r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A young man driving a car is picking up his girlfriend for a date.",
+  "hypothesis": "A young man is picking up his girlfriend for a date.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A person performing a snowboarding trick on a high mountain.",
+   "new": "A young man driving a car is picking up his girlfriend for a date."
+  },
+  "label_reason": "Changing action from snowboarding to picking up girlfriend changes contradiction to entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "3186338070.jpg#2r1c__paraphrase",
+  "original_id": "3186338070.jpg#2r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "An individual doing a snowboard maneuver high up on a mountain peak.",
+  "hypothesis": "A young man is picking up his girlfriend for a date.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A person performing a snowboarding trick on a high mountain.",
+   "new": "An individual doing a snowboard maneuver high up on a mountain peak."
+  },
+  "label_reason": "Paraphrased sentence retaining identical contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "3186338070.jpg#2r1c__irrelevant_info",
+  "original_id": "3186338070.jpg#2r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A person wearing a helmet performing a snowboarding trick on a high mountain.",
+  "hypothesis": "A young man is picking up his girlfriend for a date.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A person performing a snowboarding trick on a high mountain.",
+   "new": "A person wearing a helmet performing a snowboarding trick on a high mountain."
+  },
+  "label_reason": "Added helmet detail.",
+  "status": "approved"
+ },
+ {
+  "id": "5676066044.jpg#0r1n__label_change",
+  "original_id": "5676066044.jpg#0r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Colorfully dressed man practicing a routine for his street performance by dancing and balancing something on his head.",
+  "hypothesis": "There is a man practicing a routine for his street performance.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Colorfully dressed man dancing in the streets, while balancing something on his head.",
+   "new": "Colorfully dressed man practicing a routine for his street performance by dancing and balancing something on his head."
+  },
+  "label_reason": "Explicitly adding 'practicing a routine for his street performance' yields entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "5676066044.jpg#0r1n__paraphrase",
+  "original_id": "5676066044.jpg#0r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A male in bright clothes dances outdoor while keeping an object balanced on top of his head.",
+  "hypothesis": "There is a man practicing a routine for his street performance.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Colorfully dressed man dancing in the streets, while balancing something on his head.",
+   "new": "A male in bright clothes dances outdoor while keeping an object balanced on top of his head."
+  },
+  "label_reason": "Paraphrased sentence retaining original neutral stance.",
+  "status": "approved"
+ },
+ {
+  "id": "5676066044.jpg#0r1n__irrelevant_info",
+  "original_id": "5676066044.jpg#0r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Colorfully dressed man dancing barefoot in the streets, while balancing something on his head.",
+  "hypothesis": "There is a man practicing a routine for his street performance.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Colorfully dressed man dancing in the streets, while balancing something on his head.",
+   "new": "Colorfully dressed man dancing barefoot in the streets, while balancing something on his head."
+  },
+  "label_reason": "Added detail about being barefoot.",
+  "status": "approved"
+ },
+ {
+  "id": "2737664903.jpg#0r1e__label_change",
+  "original_id": "2737664903.jpg#0r1e",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A group of people standing inside an indoor ski resort with a painted mountain backdrop.",
+  "hypothesis": "People are outside.",
+  "gold_label": "contradiction",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A group of people standing in the snow with a mountain in the background.",
+   "new": "A group of people standing inside an indoor ski resort with a painted mountain backdrop."
+  },
+  "label_reason": "Changing location to indoors creates a contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "2737664903.jpg#0r1e__paraphrase",
+  "original_id": "2737664903.jpg#0r1e",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Several individuals stand outdoor in snowy terrain facing towards distant mountains.",
+  "hypothesis": "People are outside.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A group of people standing in the snow with a mountain in the background.",
+   "new": "Several individuals stand outdoor in snowy terrain facing towards distant mountains."
+  },
+  "label_reason": "Paraphrased sentence retaining entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "2737664903.jpg#0r1e__irrelevant_info",
+  "original_id": "2737664903.jpg#0r1e",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A group of four people standing in the snow with a mountain in the background.",
+  "hypothesis": "People are outside.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A group of people standing in the snow with a mountain in the background.",
+   "new": "A group of four people standing in the snow with a mountain in the background."
+  },
+  "label_reason": "Specified exact count of four people.",
+  "status": "approved"
+ },
+ {
+  "id": "4686133452.jpg#3r1e__label_change",
+  "original_id": "4686133452.jpg#3r1e",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Asian workers assembling a plastic project.",
+  "hypothesis": "Workers are using wood for their project.",
+  "gold_label": "contradiction",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "Asian workers assembling a wood project.",
+   "new": "Asian workers assembling a plastic project."
+  },
+  "label_reason": "Changing material from wood to plastic turns entailment to contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "4686133452.jpg#3r1e__paraphrase",
+  "original_id": "4686133452.jpg#3r1e",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Laborers of Asian descent constructing an item made of timber.",
+  "hypothesis": "Workers are using wood for their project.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "Asian workers assembling a wood project.",
+   "new": "Laborers of Asian descent constructing an item made of timber."
+  },
+  "label_reason": "Paraphrased sentence retaining original entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "4686133452.jpg#3r1e__irrelevant_info",
+  "original_id": "4686133452.jpg#3r1e",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Asian workers assembling a wood project inside a brightly lit workshop.",
+  "hypothesis": "Workers are using wood for their project.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "Asian workers assembling a wood project.",
+   "new": "Asian workers assembling a wood project inside a brightly lit workshop."
+  },
+  "label_reason": "Added workshop lighting context.",
+  "status": "approved"
+ },
+ {
+  "id": "4805835848.jpg#2r1n__label_change",
+  "original_id": "4805835848.jpg#2r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Two little girls wearing bikinis on a hot summer day playing in a swimming pool.",
+  "hypothesis": "The girl is wearing a bikini.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Two little girls on a hot summer day playing in a swimming pool.",
+   "new": "Two little girls wearing bikinis on a hot summer day playing in a swimming pool."
+  },
+  "label_reason": "Explicitly noting bikinis turns neutral relationship to entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "4805835848.jpg#2r1n__paraphrase",
+  "original_id": "4805835848.jpg#2r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A pair of young female kids playing in pool water during warm summer weather.",
+  "hypothesis": "The girl is wearing a bikini.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Two little girls on a hot summer day playing in a swimming pool.",
+   "new": "A pair of young female kids playing in pool water during warm summer weather."
+  },
+  "label_reason": "Paraphrased sentence retaining neutral label.",
+  "status": "approved"
+ },
+ {
+  "id": "4805835848.jpg#2r1n__irrelevant_info",
+  "original_id": "4805835848.jpg#2r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Two little girls on a hot summer day playing with inflatable toys in a swimming pool.",
+  "hypothesis": "The girl is wearing a bikini.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Two little girls on a hot summer day playing in a swimming pool.",
+   "new": "Two little girls on a hot summer day playing with inflatable toys in a swimming pool."
+  },
+  "label_reason": "Added detail about inflatable toys.",
+  "status": "approved"
+ },
+ {
+  "id": "3562001359.jpg#1r1e__label_change",
+  "original_id": "3562001359.jpg#1r1e",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "An empty yellow canoe sits alone on a quiet lake.",
+  "hypothesis": "There are at least two figures in the picture.",
+  "gold_label": "contradiction",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "The person and the dog are sitting on the yellow canoe.",
+   "new": "An empty yellow canoe sits alone on a quiet lake."
+  },
+  "label_reason": "An empty canoe means zero figures, contradicting at least two figures.",
+  "status": "approved"
+ },
+ {
+  "id": "3562001359.jpg#1r1e__paraphrase",
+  "original_id": "3562001359.jpg#1r1e",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A human alongside a canine are seated aboard a yellow canoe.",
+  "hypothesis": "There are at least two figures in the picture.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "The person and the dog are sitting on the yellow canoe.",
+   "new": "A human alongside a canine are seated aboard a yellow canoe."
+  },
+  "label_reason": "Synonymous restatement with entailment preserved.",
+  "status": "approved"
+ },
+ {
+  "id": "3562001359.jpg#1r1e__irrelevant_info",
+  "original_id": "3562001359.jpg#1r1e",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "The person and the dog are sitting on the yellow wooden canoe.",
+  "hypothesis": "There are at least two figures in the picture.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "The person and the dog are sitting on the yellow canoe.",
+   "new": "The person and the dog are sitting on the yellow wooden canoe."
+  },
+  "label_reason": "Added canoe material ('wooden').",
+  "status": "approved"
+ },
+ {
+  "id": "4824416683.jpg#0r1e__label_change",
+  "original_id": "4824416683.jpg#0r1e",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A man stands alertly beside a tan wall without any face covering.",
+  "hypothesis": "The man is covering his face and taking a break.",
+  "gold_label": "contradiction",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A man, with a green cloth over his face, rests with his arms crossed beside a tan wall.",
+   "new": "A man stands alertly beside a tan wall without any face covering."
+  },
+  "label_reason": "Removing cloth covering and rest activity produces contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "4824416683.jpg#0r1e__paraphrase",
+  "original_id": "4824416683.jpg#0r1e",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A male has a green fabric draped over his face while leaning against a beige wall resting.",
+  "hypothesis": "The man is covering his face and taking a break.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A man, with a green cloth over his face, rests with his arms crossed beside a tan wall.",
+   "new": "A male has a green fabric draped over his face while leaning against a beige wall resting."
+  },
+  "label_reason": "Rephrased words preserving entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "4824416683.jpg#0r1e__irrelevant_info",
+  "original_id": "4824416683.jpg#0r1e",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A man, with a green cloth over his face, rests with his arms crossed beside a tan brick wall.",
+  "hypothesis": "The man is covering his face and taking a break.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A man, with a green cloth over his face, rests with his arms crossed beside a tan wall.",
+   "new": "A man, with a green cloth over his face, rests with his arms crossed beside a tan brick wall."
+  },
+  "label_reason": "Added wall texture ('brick').",
+  "status": "approved"
+ },
+ {
+  "id": "2147870343.jpg#3r1e__label_change",
+  "original_id": "2147870343.jpg#3r1e",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A girl and boy are lying down on a green lawn.",
+  "hypothesis": "People are standing in a hallway.",
+  "gold_label": "contradiction",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A girl and boy are smiling in a green hallway.",
+   "new": "A girl and boy are lying down on a green lawn."
+  },
+  "label_reason": "Lying on a lawn directly contradicts standing in a hallway.",
+  "status": "approved"
+ },
+ {
+  "id": "2147870343.jpg#3r1e__paraphrase",
+  "original_id": "2147870343.jpg#3r1e",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A young female and male are grinning inside a green painted corridor.",
+  "hypothesis": "People are standing in a hallway.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A girl and boy are smiling in a green hallway.",
+   "new": "A young female and male are grinning inside a green painted corridor."
+  },
+  "label_reason": "Rephrased terms maintaining entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "2147870343.jpg#3r1e__irrelevant_info",
+  "original_id": "2147870343.jpg#3r1e",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A girl and boy holding hands are smiling in a green hallway.",
+  "hypothesis": "People are standing in a hallway.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A girl and boy are smiling in a green hallway.",
+   "new": "A girl and boy holding hands are smiling in a green hallway."
+  },
+  "label_reason": "Added detail about holding hands.",
+  "status": "approved"
+ },
+ {
+  "id": "211402278.jpg#0r1c__label_change",
+  "original_id": "211402278.jpg#0r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Sheep farmers are crouching and preparing to feed their animals as the sheepdog watches closely by.",
+  "hypothesis": "Farmers are preparing to feed their animals as a dog watches closely by.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "Farmers plant their corn as a scarecrow watches closely by.",
+   "new": "Farmers are preparing to feed their animals as a dog watches closely by."
+  },
+  "label_reason": "By changing the hypothesis to match the feeding action and the dog from the premise, the statement is now fully entailed by the premise.",
+  "status": "approved"
+ },
+ {
+  "id": "211402278.jpg#0r1c__paraphrase",
+  "original_id": "211402278.jpg#0r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Livestock farmers squat down, getting ready to give food to livestock while a sheepdog observes nearby.",
+  "hypothesis": "Farmers plant their corn as a scarecrow watches closely by.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "Sheep farmers are crouching and preparing to feed their animals as the sheepdog watches closely by.",
+   "new": "Livestock farmers squat down, getting ready to give food to livestock while a sheepdog observes nearby."
+  },
+  "label_reason": "Paraphrased sentence preserving contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "211402278.jpg#0r1c__irrelevant_info",
+  "original_id": "211402278.jpg#0r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Sheep farmers in overalls are crouching and preparing to feed their animals as the sheepdog watches closely by.",
+  "hypothesis": "Farmers plant their corn as a scarecrow watches closely by.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "Sheep farmers are crouching and preparing to feed their animals as the sheepdog watches closely by.",
+   "new": "Sheep farmers in overalls are crouching and preparing to feed their animals as the sheepdog watches closely by."
+  },
+  "label_reason": "Added farmer clothing ('overalls').",
+  "status": "approved"
+ },
+ {
+  "id": "6220789654.jpg#0r1c__label_change",
+  "original_id": "6220789654.jpg#0r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A musician with short blond-hair and wearing a blue vest plays a string instrument while singing.",
+  "hypothesis": "Nobody has a scarf.",
+  "gold_label": "neutral",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A musician with short blond-hair and wearing a blue scarf and vest plays a string instrument while singing.",
+   "new": "A musician with short blond-hair and wearing a blue vest plays a string instrument while singing."
+  },
+  "label_reason": "Removing 'scarf' turns contradiction to neutral (since we don't know if anyone else has a scarf).",
+  "status": "approved"
+ },
+ {
+  "id": "6220789654.jpg#0r1c__paraphrase",
+  "original_id": "6220789654.jpg#0r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A performer with short blonde hair dressed in a blue scarf and vest plays stringed instruments while vocalizing.",
+  "hypothesis": "Nobody has a scarf.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A musician with short blond-hair and wearing a blue scarf and vest plays a string instrument while singing.",
+   "new": "A performer with short blonde hair dressed in a blue scarf and vest plays stringed instruments while vocalizing."
+  },
+  "label_reason": "Paraphrased sentence retaining original contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "6220789654.jpg#0r1c__irrelevant_info",
+  "original_id": "6220789654.jpg#0r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A musician with short blond-hair and wearing a blue scarf and vest plays an acoustic string instrument while singing.",
+  "hypothesis": "Nobody has a scarf.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A musician with short blond-hair and wearing a blue scarf and vest plays a string instrument while singing.",
+   "new": "A musician with short blond-hair and wearing a blue scarf and vest plays an acoustic string instrument while singing."
+  },
+  "label_reason": "Added descriptor 'acoustic' to instrument.",
+  "status": "approved"
+ },
+ {
+  "id": "141755290.jpg#2r1c__label_change",
+  "original_id": "141755290.jpg#2r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A woman in a red tracksuit sitting down reading a book.",
+  "hypothesis": "A woman reading a book.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A woman in an red tracksuit squeezing lemons in a press.",
+   "new": "A woman in a red tracksuit sitting down reading a book."
+  },
+  "label_reason": "Changing action from squeezing lemons to reading a book makes hypothesis entailed.",
+  "status": "approved"
+ },
+ {
+  "id": "141755290.jpg#2r1c__paraphrase",
+  "original_id": "141755290.jpg#2r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Wearing a red tracksuit, a female presses lemons using a juicer.",
+  "hypothesis": "A woman reading a book.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A woman in an red tracksuit squeezing lemons in a press.",
+   "new": "Wearing a red tracksuit, a female presses lemons using a juicer."
+  },
+  "label_reason": "Rephrased words preserving original contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "141755290.jpg#2r1c__irrelevant_info",
+  "original_id": "141755290.jpg#2r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A woman in a red tracksuit squeezing fresh lemons in a press.",
+  "hypothesis": "A woman reading a book.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A woman in an red tracksuit squeezing lemons in a press.",
+   "new": "A woman in a red tracksuit squeezing fresh lemons in a press."
+  },
+  "label_reason": "Added adjective 'fresh'.",
+  "status": "approved"
+ },
+ {
+  "id": "2398918048.jpg#2r1c__label_change",
+  "original_id": "2398918048.jpg#2r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Six women holding an empty flag pole.",
+  "hypothesis": "The women are holding an empty flag pole",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "Six women that are showing their nationality by holding a flag.",
+   "new": "Six women holding an empty flag pole."
+  },
+  "label_reason": "Replacing flag holding with empty flag pole yields entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "2398918048.jpg#2r1c__paraphrase",
+  "original_id": "2398918048.jpg#2r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Half a dozen females displaying national pride by clutching a flag.",
+  "hypothesis": "The women are holding an empty flag pole",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "Six women that are showing their nationality by holding a flag.",
+   "new": "Half a dozen females displaying national pride by clutching a flag."
+  },
+  "label_reason": "Paraphrased sentence retaining contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "2398918048.jpg#2r1c__irrelevant_info",
+  "original_id": "2398918048.jpg#2r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Six women that are showing their nationality by holding a large flag.",
+  "hypothesis": "The women are holding an empty flag pole",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "Six women that are showing their nationality by holding a flag.",
+   "new": "Six women that are showing their nationality by holding a large flag."
+  },
+  "label_reason": "Added flag size attribute ('large').",
+  "status": "approved"
+ },
+ {
+  "id": "2986716822.jpg#2r1c__label_change",
+  "original_id": "2986716822.jpg#2r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "The brown German shepherd dog is sleeping in a dog bed.",
+  "hypothesis": "A dog is sleeping in a dog bed.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "The brown German shepherd dog is playing with a stick.",
+   "new": "The brown German shepherd dog is sleeping in a dog bed."
+  },
+  "label_reason": "Changing action from playing to sleeping in a dog bed turns contradiction into entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "2986716822.jpg#2r1c__paraphrase",
+  "original_id": "2986716822.jpg#2r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A German shepherd with brown fur plays with a wooden stick.",
+  "hypothesis": "A dog is sleeping in a dog bed.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "The brown German shepherd dog is playing with a stick.",
+   "new": "A German shepherd with brown fur plays with a wooden stick."
+  },
+  "label_reason": "Rephrased words preserving contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "2986716822.jpg#2r1c__irrelevant_info",
+  "original_id": "2986716822.jpg#2r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "The brown German shepherd dog is playing with a wooden stick on the grass.",
+  "hypothesis": "A dog is sleeping in a dog bed.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "The brown German shepherd dog is playing with a stick.",
+   "new": "The brown German shepherd dog is playing with a wooden stick on the grass."
+  },
+  "label_reason": "Added ground type ('grass') detail.",
+  "status": "approved"
+ },
+ {
+  "id": "4696903210.jpg#1r1e__label_change",
+  "original_id": "4696903210.jpg#1r1e",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A well built black man is running on an outdoor track, listening to headphones.",
+  "hypothesis": "A man with headphones on is standing in a subway.",
+  "gold_label": "contradiction",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A well built black man stands in the subway, listening to headphones.",
+   "new": "A well built black man is running on an outdoor track, listening to headphones."
+  },
+  "label_reason": "Changing location to outdoor track and action to running contradicts standing in subway.",
+  "status": "approved"
+ },
+ {
+  "id": "4696903210.jpg#1r1e__paraphrase",
+  "original_id": "4696903210.jpg#1r1e",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "An athletic muscular black male stands inside the subway station while listening to headphones.",
+  "hypothesis": "A man with headphones on is standing in a subway.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A well built black man stands in the subway, listening to headphones.",
+   "new": "An athletic muscular black male stands inside the subway station while listening to headphones."
+  },
+  "label_reason": "Rephrased sentence preserving original entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "4696903210.jpg#1r1e__irrelevant_info",
+  "original_id": "4696903210.jpg#1r1e",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A well built black man stands in the crowded subway, listening to headphones.",
+  "hypothesis": "A man with headphones on is standing in a subway.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A well built black man stands in the subway, listening to headphones.",
+   "new": "A well built black man stands in the crowded subway, listening to headphones."
+  },
+  "label_reason": "Added description 'crowded'.",
+  "status": "approved"
+ },
+ {
+  "id": "4630881369.jpg#1r1n__label_change",
+  "original_id": "4630881369.jpg#1r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "Boy with white powder and blue writing painted on his face as clown make up.",
+  "hypothesis": "A boy have clown make up on his face.",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Boy with white powder and blue writing on his face",
+   "new": "Boy with white powder and blue writing painted on his face as clown make up."
+  },
+  "label_reason": "Explicitly identifying face paint as clown makeup converts neutral to entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "4630881369.jpg#1r1n__paraphrase",
+  "original_id": "4630881369.jpg#1r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A young boy with white powderly substance and blue written markings on his face.",
+  "hypothesis": "A boy have clown make up on his face.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Boy with white powder and blue writing on his face",
+   "new": "A young boy with white powderly substance and blue written markings on his face."
+  },
+  "label_reason": "Paraphrased sentence retaining neutral label.",
+  "status": "approved"
+ },
+ {
+  "id": "4630881369.jpg#1r1n__irrelevant_info",
+  "original_id": "4630881369.jpg#1r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "Boy wearing a blue t-shirt with white powder and blue writing on his face.",
+  "hypothesis": "A boy have clown make up on his face.",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "Boy with white powder and blue writing on his face",
+   "new": "Boy wearing a blue t-shirt with white powder and blue writing on his face."
+  },
+  "label_reason": "Added shirt description detail.",
+  "status": "approved"
+ },
+ {
+  "id": "4935649066.jpg#0r1c__label_change",
+  "original_id": "4935649066.jpg#0r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "The tops of a large number of balloons are visible behind a wall, with a large high rise building in the background.",
+  "hypothesis": "Balloons and a high-rise building are visible in an urban environment.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A man and woman watch the sun set over the ocean.",
+   "new": "Balloons and a high-rise building are visible in an urban environment."
+  },
+  "label_reason": "Updating the hypothesis to reference the balloons and high-rise building from the premise correctly creates an entailment relationship.",
+  "status": "approved"
+ },
+ {
+  "id": "4935649066.jpg#0r1c__paraphrase",
+  "original_id": "4935649066.jpg#0r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "Upper parts of numerous balloons can be seen over a wall, with a tall skyscraper in the background.",
+  "hypothesis": "A man and woman watch the sun set over the ocean.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "The tops of a large number of balloons are visible behind a wall, with a large high rise building in the background.",
+   "new": "Upper parts of numerous balloons can be seen over a wall, with a tall skyscraper in the background."
+  },
+  "label_reason": "Rephrased words keeping identical contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "4935649066.jpg#0r1c__irrelevant_info",
+  "original_id": "4935649066.jpg#0r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "The tops of a large number of colorful balloons are visible behind a wall, with a large high rise building in the background.",
+  "hypothesis": "A man and woman watch the sun set over the ocean.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "The tops of a large number of balloons are visible behind a wall, with a large high rise building in the background.",
+   "new": "The tops of a large number of colorful balloons are visible behind a wall, with a large high rise building in the background."
+  },
+  "label_reason": "Added balloon attribute ('colorful').",
+  "status": "approved"
+ },
+ {
+  "id": "539751252.jpg#0r1e__label_change",
+  "original_id": "539751252.jpg#0r1e",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A young boy wearing blue shorts is dry, sitting on a towel in the grass.",
+  "hypothesis": "The young boy is wet.",
+  "gold_label": "contradiction",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A young boy wearing blue shorts is splashing is a blue kiddie pool.",
+   "new": "A young boy wearing blue shorts is dry, sitting on a towel in the grass."
+  },
+  "label_reason": "Stating that the boy is dry directly contradicts the hypothesis.",
+  "status": "approved"
+ },
+ {
+  "id": "539751252.jpg#0r1e__paraphrase",
+  "original_id": "539751252.jpg#0r1e",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "A small boy in blue swimming trunks plays around in water inside a small inflatable blue pool.",
+  "hypothesis": "The young boy is wet.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A young boy wearing blue shorts is splashing is a blue kiddie pool.",
+   "new": "A small boy in blue swimming trunks plays around in water inside a small inflatable blue pool."
+  },
+  "label_reason": "Rephrased sentence preserving original entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "539751252.jpg#0r1e__irrelevant_info",
+  "original_id": "539751252.jpg#0r1e",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A young boy wearing blue shorts is splashing happily in a blue kiddie pool.",
+  "hypothesis": "The young boy is wet.",
+  "gold_label": "entailment",
+  "original_label": "entailment",
+  "changed_span": {
+   "old": "A young boy wearing blue shorts is splashing is a blue kiddie pool.",
+   "new": "A young boy wearing blue shorts is splashing happily in a blue kiddie pool."
+  },
+  "label_reason": "Added emotional state ('happily').",
+  "status": "approved"
+ },
+ {
+  "id": "3193335577.jpg#2r1c__label_change",
+  "original_id": "3193335577.jpg#2r1c",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "A boy in a red shirt with arms outstretched on the side of hill.",
+  "hypothesis": "A young male is on the side of a hill.",
+  "gold_label": "entailment",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A girl is singing on a hillside.",
+   "new": "A young male is on the side of a hill."
+  },
+  "label_reason": "Changing the hypothesis to describe a young male on the side of a hill accurately entails the details present in the premise.",
+  "status": "approved"
+ },
+ {
+  "id": "3193335577.jpg#2r1c__paraphrase",
+  "original_id": "3193335577.jpg#2r1c",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "On a hill slope, a male child wearing a red shirt extends his arms outward.",
+  "hypothesis": "A girl is singing on a hillside.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A boy in a red shirt with arms outstretched on the side of hill.",
+   "new": "On a hill slope, a male child wearing a red shirt extends his arms outward."
+  },
+  "label_reason": "Paraphrased sentence retaining contradiction.",
+  "status": "approved"
+ },
+ {
+  "id": "3193335577.jpg#2r1c__irrelevant_info",
+  "original_id": "3193335577.jpg#2r1c",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "A boy in a bright red shirt with arms outstretched on the grassy side of hill.",
+  "hypothesis": "A girl is singing on a hillside.",
+  "gold_label": "contradiction",
+  "original_label": "contradiction",
+  "changed_span": {
+   "old": "A boy in a red shirt with arms outstretched on the side of hill.",
+   "new": "A boy in a bright red shirt with arms outstretched on the grassy side of hill."
+  },
+  "label_reason": "Added ground descriptor ('grassy').",
+  "status": "approved"
+ },
+ {
+  "id": "3634032601.jpg#2r1n__label_change",
+  "original_id": "3634032601.jpg#2r1n",
+  "modification_type": "label_change",
+  "split": "dev",
+  "premise": "The back view of a woman in a colorful shirt having a conversation while sitting next to a woman in a black top.",
+  "hypothesis": "Two women having a conversation",
+  "gold_label": "entailment",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "The back view of a woman in a colorful shirt sitting next to a woman in a black top.",
+   "new": "The back view of a woman in a colorful shirt having a conversation while sitting next to a woman in a black top."
+  },
+  "label_reason": "Explicitly noting they are having a conversation converts neutral label to entailment.",
+  "status": "approved"
+ },
+ {
+  "id": "3634032601.jpg#2r1n__paraphrase",
+  "original_id": "3634032601.jpg#2r1n",
+  "modification_type": "paraphrase",
+  "split": "dev",
+  "premise": "From behind, a lady in a brightly patterned top sits beside another lady dressed in black.",
+  "hypothesis": "Two women having a conversation",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "The back view of a woman in a colorful shirt sitting next to a woman in a black top.",
+   "new": "From behind, a lady in a brightly patterned top sits beside another lady dressed in black."
+  },
+  "label_reason": "Rephrased words retaining original neutral logic.",
+  "status": "approved"
+ },
+ {
+  "id": "3634032601.jpg#2r1n__irrelevant_info",
+  "original_id": "3634032601.jpg#2r1n",
+  "modification_type": "irrelevant_addition",
+  "split": "dev",
+  "premise": "The back view of a woman in a colorful shirt sitting next to a woman in a black top on a wooden bench.",
+  "hypothesis": "Two women having a conversation",
+  "gold_label": "neutral",
+  "original_label": "neutral",
+  "changed_span": {
+   "old": "The back view of a woman in a colorful shirt sitting next to a woman in a black top.",
+   "new": "The back view of a woman in a colorful shirt sitting next to a woman in a black top on a wooden bench."
+  },
+  "label_reason": "Added seat details ('wooden bench').",
+  "status": "approved"
+ }
+]

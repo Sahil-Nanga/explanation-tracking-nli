@@ -1,0 +1,12 @@
+Premise: {{premise}}
+Hypothesis: {{hypothesis}}
+
+A system answered this inference problem as follows.
+Predicted label: {{label}}
+Quoted premise spans: {{premise_spans}}
+Quoted hypothesis spans: {{hypothesis_spans}}
+Explanation: {{explanation}}
+
+Check this answer and correct it if needed. Keep it if it is right; otherwise give a corrected answer (explanation at most 40 words; spans copied verbatim).
+Return a JSON object with exactly these keys, in this order:
+{"decision": "keep" | "revise", "label": "entailment" | "neutral" | "contradiction", "premise_spans": ["..."], "hypothesis_spans": ["..."], "explanation": "<at most 40 words>"}

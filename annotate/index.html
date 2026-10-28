@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Annotation Desk</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --line: #e3e6ea; --text: #1d232b; --muted: #6b7480;
+  --accent: #2f6fe0; --accent-soft: #e8f0fd; --accent-text: #ffffff;
+  --yellow: #ffeeb0; --blue: #d8e7ff; --del-bg: #fde3e3; --del-fg: #9b2222; --ins-bg: #d9f3e2; --ins-fg: #17642e;
+  --warn-bg: #fff4d6; --warn-fg: #6b5000; --err: #b42318; --ok: #18794e;
+  --true: #18794e; --maybe: #5f6670; --false: #c0362c;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171c; --panel: #1c2027; --line: #2f353f; --text: #e6e9ee; --muted: #949dab;
+    --accent: #6d9ef7; --accent-soft: #233150; --accent-text: #0f1420;
+    --yellow: #50431a; --blue: #1f3659; --del-bg: #4b2326; --del-fg: #f3aaaa; --ins-bg: #1c3e29; --ins-fg: #9fe0b2;
+    --warn-bg: #3d3216; --warn-fg: #f1d48a; --err: #f08b82; --ok: #74d39b;
+    --true: #57c784; --maybe: #a5acb6; --false: #f07a70;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+button, select, textarea { font: inherit; color: inherit; }
+a { color: var(--accent); text-decoration: none; }
+header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 10px 20px;
+  background: var(--panel); border-bottom: 1px solid var(--line); }
+header .brand { font-weight: 650; color: var(--text); white-space: nowrap; }
+header .who { font-size: 13px; color: var(--muted); white-space: nowrap; }
+@media (max-width: 480px) { header { padding: 10px 16px; } #status { font-size: 12px; } }
+header .who a { margin-left: 6px; }
+#status { margin-left: auto; font-size: 13px; color: var(--muted); white-space: nowrap; }
+#status.err { color: var(--err); font-weight: 600; }
+.page { max-width: 820px; margin: 0 auto; padding: 24px 16px 96px; }
+h1 { font-size: 24px; margin: 4px 0 6px; letter-spacing: -.01em; }
+h2 { font-size: 17px; margin: 0 0 8px; }
+p { margin: 6px 0 12px; }
+.lead { color: var(--muted); margin-bottom: 20px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; margin-bottom: 16px; }
+.btn { border: 1px solid var(--line); background: var(--panel); border-radius: 9px; padding: 8px 16px; cursor: pointer; display: inline-block; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
+.btn:disabled { opacity: .45; cursor: default; }
+.link { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 0; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.person { display: block; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; color: var(--text); }
+.person:hover { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.person b { display: block; font-size: 17px; margin-bottom: 4px; }
+.person span { color: var(--muted); font-size: 14px; }
+.task { display: grid; grid-template-columns: 34px 1fr auto; gap: 14px; align-items: center; }
+.task + .task { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 16px; }
+.num { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 14px;
+  background: var(--accent-soft); color: var(--accent); }
+.num.done { background: var(--ok); color: #fff; }
+.task .t { font-weight: 600; }
+.task .d { color: var(--muted); font-size: 14px; }
+.task .meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+.bar.full i { background: var(--ok); }
+.minibar { width: 140px; margin-top: 6px; }
+
+.crumbs { display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-bottom: 4px; }
+.progress { display: flex; align-items: center; gap: 12px; margin: 8px 0 18px; font-size: 13px; color: var(--muted); }
+.progress .bar { flex: 1; }
+.banner { background: var(--accent-soft); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.banner.ok { background: var(--ins-bg); color: var(--ins-fg); }
+.itemhead { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.tick { color: var(--ok); font-weight: 600; }
+.itemnav { display: flex; gap: 10px; align-items: center; margin-top: 4px; }
+.itemnav select { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); }
+
+.sents { display: grid; gap: 10px; }
+.sent { background: var(--bg); border-radius: 10px; padding: 12px 14px; font-size: 17px; line-height: 1.55; }
+.sent .lbl, .field .lbl { display: block; font-size: 12px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.field { margin-top: 14px; }
+mark.y { background: var(--yellow); color: inherit; border-radius: 4px; padding: 1px 3px; }
+mark.b { background: var(--blue); color: inherit; border-radius: 4px; padding: 1px 3px; }
+del { background: var(--del-bg); color: var(--del-fg); border-radius: 4px; padding: 0 3px; }
+ins { background: var(--ins-bg); color: var(--ins-fg); text-decoration: none; border-radius: 4px; padding: 0 3px; }
+.ans { display: inline-block; font-weight: 650; border-radius: 999px; padding: 1px 12px; border: 1.5px solid currentColor; font-size: 14px; }
+.ans.entailment { color: var(--true); } .ans.neutral { color: var(--maybe); } .ans.contradiction { color: var(--false); }
+.quote { display: inline-block; background: var(--bg); border-radius: 7px; padding: 2px 9px; margin: 2px 4px 2px 0; font-size: 14px; }
+.expl { background: var(--bg); border-radius: 10px; padding: 10px 14px; }
+.note { font-size: 14px; color: var(--muted); }
+
+.big { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.big button { border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 14px 8px; cursor: pointer; font-size: 16px; font-weight: 650; }
+.big button small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.big button:hover { border-color: var(--accent); }
+.big button.on.entailment { background: var(--true); border-color: var(--true); color: #fff; }
+.big button.on.neutral { background: var(--maybe); border-color: var(--maybe); color: #fff; }
+.big button.on.contradiction { background: var(--false); border-color: var(--false); color: #fff; }
+.big button.on small { color: inherit; opacity: .85; }
+
+.steps { display: flex; gap: 6px; margin-bottom: 18px; }
+.steps button { flex: 1; border: 0; border-bottom: 3px solid var(--line); background: none; padding: 6px 4px 8px; cursor: pointer; color: var(--muted); font-size: 14px; }
+.steps button.on { border-bottom-color: var(--accent); color: var(--text); font-weight: 600; }
+.steps button.ok::after { content: " ✓"; color: var(--ok); }
+
+.q { padding: 14px 0; border-top: 1px solid var(--line); }
+.q:first-child { border-top: 0; }
+.q .qt { font-weight: 600; }
+.q .qh { font-size: 13px; color: var(--muted); }
+.q.todo .qt::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.opts button { border: 1.5px solid var(--line); background: var(--panel); border-radius: 999px; padding: 6px 16px; cursor: pointer; }
+.opts button:hover { border-color: var(--accent); }
+.opts button.on { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 600; }
+.raters { font-size: 13px; margin-top: 6px; color: var(--muted); }
+.raters b { color: var(--text); }
+
+.checks { display: grid; gap: 6px; margin-top: 8px; }
+.checks label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); }
+.checks label:hover { border-color: var(--accent); }
+.checks input { margin-top: 4px; accent-color: var(--accent); }
+.checks .sub { font-size: 12.5px; color: var(--muted); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .two, .big { grid-template-columns: 1fr; } .task { grid-template-columns: 30px 1fr; } .task .go { grid-column: 2; } }
+.side { background: var(--bg); border-radius: 10px; padding: 12px 14px; font-size: 14px; }
+.side .lbl { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--muted); }
+
+textarea { width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--panel); resize: vertical; font-size: 16px; }
+textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.edit { border-radius: 12px; padding: 14px 16px; margin-top: 16px; border: 1px solid var(--line); }
+.diffline { font-size: 14px; margin-top: 10px; }
+.fill { font-size: 17px; line-height: 2.1; }
+.fill input { font: inherit; width: min(100%, 340px); margin: 0 4px; padding: 3px 10px; border: 1.5px solid var(--accent); border-radius: 8px;
+  background: var(--panel); color: var(--text); }
+.fill input:focus { outline: none; box-shadow: 0 0 0 3px var(--accent-soft); }
+.warn { background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: 6px 10px; font-size: 13.5px; margin-top: 8px; }
+.good { color: var(--ok); font-size: 13.5px; margin-top: 8px; }
+
+.tags { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; margin-top: 10px; }
+.tag { text-align: left; border: 1.5px solid var(--line); background: var(--panel); border-radius: 10px; padding: 8px 12px; cursor: pointer; }
+.tag b { display: block; font-size: 14.5px; }
+.tag span { font-size: 12.5px; color: var(--muted); }
+.tag.on { border-color: var(--accent); background: var(--accent-soft); }
+.tag kbd { float: right; }
+kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; font-size: 11.5px; background: var(--panel); color: var(--muted); }
+
+table.cmp { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }
+table.cmp td, table.cmp th { text-align: left; padding: 6px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+table.cmp tr.diff td { background: var(--warn-bg); }
+details.box { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 10px; }
+details.box > summary { padding: 12px 16px; cursor: pointer; }
+details.box > div { padding: 0 16px 16px; }
+pre.out { background: var(--bg); border-radius: 10px; padding: 12px; max-height: 380px; overflow: auto; font-size: 12.5px; white-space: pre-wrap; }
+
+#modal { position: fixed; inset: 0; background: rgba(10, 14, 20, .45); display: grid; place-items: center; z-index: 20; padding: 16px; }
+#modal[hidden] { display: none; }
+#modal .sheet { background: var(--panel); border-radius: 16px; max-width: 700px; width: 100%; max-height: 88vh; overflow: auto; padding: 24px 26px; position: relative; }
+#modal .x { position: absolute; top: 12px; right: 14px; border: 0; background: none; font-size: 22px; cursor: pointer; color: var(--muted); }
+.ex { border-left: 3px solid var(--ok); background: var(--bg); border-radius: 0 10px 10px 0; padding: 10px 14px; margin: 12px 0; }
+.ex.bad { border-left-color: var(--false); }
+.ex .h { font-weight: 650; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="#">Annotation Desk</a>
+  <span class="who" id="who"></span>
+  <span id="status"></span>
+</header>
+<div class="page" id="page"></div>
+<div id="modal" hidden><div class="sheet"><button class="x" data-act="close" aria-label="Close">×</button><div id="modalbody"></div>
+  <p style="margin-top:18px"><button class="btn primary" data-act="close">Got it</button></p></div></div>
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+             set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
+const toks = s => (s || "").trim().split(/\s+/).filter(Boolean);
+const norm = s => (s || "").toLowerCase().replace(/\s+/g, " ").trim();
+const multi = v => (v || "").split(";").map(x => x.trim()).filter(Boolean);
+const pct = (a, b) => b ? Math.round(100 * a / b) : 0;
+
+function status(msg, cls = "") { const el = $("#status"); el.textContent = msg; el.className = cls; }
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body) } : {});
+  const j = await r.json();
+  if (!r.ok || j.ok === false && !("output" in j)) throw new Error(j.error || r.statusText);
+  return j;
+}
+function shuffled(arr, seed) {
+  const a = arr.slice(); let s = seed >>> 0;
+  const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function wordDiff(a, b) {
+  const x = toks(a), y = toks(b), n = x.length, m = y.length;
+  const L = Array.from({length: n + 1}, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    L[i][j] = x[i].toLowerCase() === y[j].toLowerCase() ? L[i+1][j+1] + 1 : Math.max(L[i+1][j], L[i][j+1]);
+  const out = []; let i = 0, j = 0, del = [], ins = [];
+  const flush = () => { if (del.length) out.push(`<del>${esc(del.join(" "))}</del>`); if (ins.length) out.push(`<ins>${esc(ins.join(" "))}</ins>`); del = []; ins = []; };
+  while (i < n || j < m) {
+    if (i < n && j < m && x[i].toLowerCase() === y[j].toLowerCase()) { flush(); out.push(esc(y[j])); i++; j++; }
+    else if (j < m && (i >= n || L[i][j+1] >= L[i+1][j])) ins.push(y[j++]);
+    else del.push(x[i++]);
+  }
+  flush();
+  return out.join(" ");
+}
+function highlight(text, spans) {
+  let html = esc(text);
+  for (const [s, cls] of spans) {
+    if (!s) continue;
+    const e = esc(s), at = html.toLowerCase().indexOf(e.toLowerCase());
+    if (at >= 0) html = html.slice(0, at) + `<mark class="${cls}">` + html.slice(at, at + e.length) + "</mark>" + html.slice(at + e.length);
+  }
+  return html;
+}
+function quotes(ev, s1, s2) {
+  if (!ev || ev === "(none)") return `<span class="muted">Nothing quoted</span>`;
+  const n = s => (s || "").toLowerCase().replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
+  const A = n(s1), B = n(s2), found = ws => { const s = n(ws.join(" ")); return A.includes(s) || B.includes(s); };
+  const out = []; let cur = [];
+  for (const w of toks(ev)) {
+    if (cur.length && found([...cur, w])) { cur.push(w); continue; }
+    if (cur.length) out.push(cur);
+    cur = [w];
+  }
+  if (cur.length) out.push(cur);
+  return out.map(ws => `<span class="quote">“${esc(ws.join(" "))}”</span>`).join("");
+}
+
+const LABEL = { entailment: "Definitely true", neutral: "Might be true", contradiction: "Definitely false" };
+const LABEL_SUB = { entailment: "sentence 2 must be true", neutral: "can't tell from sentence 1", contradiction: "sentence 2 can't be true" };
+const ans = l => l ? `<span class="ans ${esc(l)}">${esc(LABEL[l] || l)}</span>` : `<span class="muted">—</span>`;
+
+const QS = {
+  Q1: { text: "Do the reasons back up the AI's answer?", hint: "Only ask whether the reasons fit the answer, even if the answer itself is wrong.",
+        opts: [["yes", "Yes"], ["partly", "Partly"], ["no", "No"]] },
+  Q2: { text: "Is the explanation right about the sentences?", hint: "Judge the reasoning, not the writing style.",
+        opts: [["correct", "Right"], ["partly", "Partly"], ["incorrect", "Wrong"]] },
+  Q3: { text: "Does it claim something the sentences don't say?", hint: "For example, an invented detail or an assumption.",
+        opts: [["yes", "Yes"], ["no", "No"]] },
+  Q4: { text: "Are the quoted words the ones that matter?", hint: "Choose “Nothing quoted” if the AI didn't quote any words.",
+        opts: [["all", "All of them"], ["some", "Some"], ["none", "None"], ["n.a.", "Nothing quoted"]] },
+};
+const PQ = {
+  P1: { text: "Did the explanation change in the right way?",
+        opts: [["appropriate", "Yes, it changed the right way"], ["stale", "No, it kept the old reasons"], ["changed_when_it_shouldnt", "It changed, but it shouldn't have"], ["n.a.", "Can't tell"]] },
+  P2: { text: "Does the AI treat the added detail as important?", hint: "Yes if the added words decide its answer or are central in its explanation.",
+        opts: [["yes", "Yes"], ["no", "No"]] },
+};
+const MOD = {
+  label_change: { name: "Meaning changed", hint: "Sentence 1 or 2 was edited so the meaning changed. A good explanation now talks about the new words." },
+  paraphrase: { name: "Same meaning, new wording", hint: "Only the wording changed. A good explanation keeps the same reasons and the same answer." },
+  irrelevant_addition: { name: "Unimportant detail added", hint: "A detail was added that doesn't matter. A good explanation keeps the same reasons and ignores it." },
+};
+const PROBLEMS = {
+  correct_pred_invalid_expl: ["Right answer, bad reasons", "The answer is correct but the explanation is wrong or doesn't support it."],
+  wrong_pred_fluent_expl: ["Wrong answer that sounds convincing", "A wrong answer with a confident, believable explanation."],
+  pred_updated_expl_inconsistent: ["Answer changed, reasons don't match", "After the edit the answer changed, but the explanation doesn't fit the new answer."],
+  unsupported_assumption: ["Assumes too much", "It assumes something to reach a definite answer when “might be true” was right."],
+  irrelevant_sensitive: ["Reacts to an unimportant detail", "Its answer or reasons change because of something that doesn't matter."],
+  missed_evidence_change: ["Misses an important change", "It ignores a change that should have changed its answer or reasons."],
+  other: ["Something else", "Please describe it in the comment."],
+};
+const PHEN = {
+  "negation": "Words like not, no, nobody, never decide the answer.",
+  "quantity": "Numbers or amounts: three vs two, all vs some, one vs many.",
+  "action": "What someone is doing: running vs sitting, eating vs cooking.",
+  "entity attribute": "What someone or something is like: colour, age, gender, clothes, size.",
+  "location/scene": "Where it happens: indoors vs outdoors, beach vs street.",
+  "missing information": "Sentence 2 adds facts that sentence 1 doesn't give.",
+  "world knowledge": "You need everyday knowledge, e.g. chess is a board game, a puppy is a dog.",
+  "other": "Anything else. Write what in the notes.",
+};
+const qOf = f => f.startsWith("orig_") || f.startsWith("var_") ? QS[f.split("_")[1]] : PQ[f];
+const fieldName = f => f.startsWith("orig_") ? `Before · ${qOf(f).text}` : f.startsWith("var_") ? `After · ${qOf(f).text}` : PQ[f] ? PQ[f].text : f;
+const optName = (f, v) => { const o = qOf(f)?.opts.find(([k]) => k === v); return o ? o[1] : (v || "—"); };
+
+const ROLES = {
+  r1: { name: "Rater 1", blurb: "Writes the edited sentences and does the first round of labels and ratings.",
+        tasks: ["int_write", "int_label_r1", "cal_r1", "rate_r1", "phen"] },
+  r2: { name: "Rater 2", blurb: "Does a second, independent round of labels and ratings.",
+        tasks: ["int_label_r2", "cal_r2", "rate_r2"] },
+  adj: { name: "Adjudicator", blurb: "Decides the final answer wherever Rater 1 and Rater 2 disagree.",
+         tasks: ["cal_compare", "int_final", "adjudicate"] },
+  together: { name: "Raters 1 + 2 together", blurb: "Compare practice answers and run the analysis steps.",
+              tasks: ["cal_compare", "run"] },
+};
+const rateRequired = r => [...["orig", "var"].flatMap(s => Object.keys(QS).map(q => `${s}_${q}`)), "P1", ...(r.mod_type === "irrelevant_addition" ? ["P2"] : [])];
+const rateState = it => { const req = rateRequired(it.row), n = req.filter(f => it.row[f]).length; return n === req.length ? "done" : n ? "part" : ""; };
+const rateItems = sh => sh.rows.map(r => ({ key: r.pair_uid, row: r, snip: r.var_hypothesis }));
+function labelItems(sh, t) {
+  const out = [];
+  for (const r of sh.rows) for (const kind of ["cited", "uncited"])
+    if ((r[`${kind}_edited_sentence`] || "").trim()) out.push({ key: r.orig_id, kind, row: r, snip: r[`${kind}_edited_sentence`] });
+  return t.seed ? shuffled(out, t.seed) : out;
+}
+const labelField = (it, t) => `${it.kind}_gold_${t.rater}`;
+const adjFields = r => rateRequired(r).filter(f => `${f}__r1` in r);
+const rate = { items: rateItems, state: rateState, view: vRate, help: "rate" };
+
+const TASKS = {
+  int_write: { title: "Write edited sentences", sheet: "interventions", help: "write", time: "about 2 hours", unit: "examples",
+    desc: "For each example, rewrite sentence 1 twice: once replacing the yellow words, once replacing the blue words.",
+    items: sh => sh.rows.map(r => ({ key: r.orig_id, row: r, snip: r.premise })),
+    state: it => it.row.cited_edited_sentence && it.row.uncited_edited_sentence ? "done" : it.row.cited_edited_sentence || it.row.uncited_edited_sentence ? "part" : "",
+    view: vWrite },
+  int_label_r1: { title: "Label the edited sentences", sheet: "interventions", rater: "r1", seed: 11, help: "label", time: "about 1 hour", unit: "pairs",
+    desc: "Read two sentences and choose: definitely true, might be true, or definitely false.",
+    empty: "Nothing to label yet. Write the edited sentences first.",
+    items: labelItems, state: (it, t) => it.row[labelField(it, t)] ? "done" : "", view: vLabel },
+  int_label_r2: { title: "Label sentence pairs", sheet: "interventions", rater: "r2", seed: 23, help: "label", time: "about 1 hour", unit: "pairs",
+    desc: "Read two sentences and choose: definitely true, might be true, or definitely false.",
+    empty: "Nothing to label yet. Rater 1 has to write the edited sentences first; you'll then get an updated copy with them.",
+    items: labelItems, state: (it, t) => it.row[labelField(it, t)] ? "done" : "", view: vLabel },
+  cal_r1: { ...rate, title: "Practice round", sheet: "calibration_r1", time: "about 30 minutes", unit: "examples",
+    desc: "Rate 10 practice examples. They don't count; afterwards you compare with Rater 2 so you both read the questions the same way." },
+  cal_r2: { ...rate, title: "Practice round", sheet: "calibration_r2", time: "about 30 minutes", unit: "examples",
+    desc: "Rate 10 practice examples. They don't count; afterwards you compare with Rater 1 so you both read the questions the same way." },
+  rate_r1: { ...rate, title: "Rate the AI's explanations", sheet: "sheet_r1", time: "3–4 hours, in as many sittings as you like", unit: "examples",
+    desc: "For each example, answer a few short questions about the AI's explanation before and after a sentence was changed." },
+  rate_r2: { ...rate, title: "Rate the AI's explanations", sheet: "sheet_r2", time: "3–4 hours, in as many sittings as you like", unit: "examples",
+    desc: "For each example, answer a few short questions about the AI's explanation before and after a sentence was changed." },
+  phen: { title: "Tag what each example depends on", sheet: "phenomena", help: "phen", time: "about 1 hour", unit: "examples",
+    desc: "For each example, pick what the answer depends on, such as a number, a negation or a place.",
+    items: sh => sh.rows.filter(r => r.split === "eval" && (S.phenAll || r.selected_for_modification === "True")).map(r => ({ key: r.id, row: r, snip: r.hypothesis })),
+    state: it => it.row.phenomenon ? "done" : "", view: vPhen },
+  cal_compare: { title: "Compare the practice answers", page: vCalCompare, sheets: ["calibration_r1", "calibration_r2"], time: "about 30 minutes",
+    desc: "See where Rater 1 and Rater 2 answered the practice examples differently, and agree how to read the questions." },
+  int_final: { title: "Final labels for the edited sentences", sheet: "interventions", help: "final", time: "under an hour", unit: "pairs",
+    desc: "Where the two raters chose different labels, decide the final one.",
+    empty: "Nothing here yet. Both raters have to label the edited sentences first.",
+    items: labelItems, state: it => it.row[`${it.kind}_gold_final`] ? "done" : "", view: vFinal },
+  adjudicate: { title: "Settle rating disagreements", sheet: "adjudicated", help: "adjudicate", time: "1–2 hours", unit: "examples",
+    desc: "Where the two raters answered a question differently, decide the final answer.",
+    missing: "Not ready yet. When both raters are done, they click “Compute agreement” under “Raters 1 + 2 together”.",
+    items: rateItems, state: it => adjFields(it.row).every(f => it.row[f]) ? "done" : "part", view: vAdj },
+  run: { title: "Run the analysis steps", page: vRun, desc: "Buttons for the computing steps, in order." },
+};
+
+const S = { meta: null, sheets: {}, role: null, task: null, idx: 0, step: -1, phenAll: false };
+async function loadSheet(name) { S.sheets[name] = await api(`/api/sheet/${name}`); return S.sheets[name]; }
+const sheetOf = t => t.sheet && S.sheets[t.sheet];
+const itemsOf = t => { const sh = sheetOf(t); return sh && sh.exists ? t.items(sh, t) : []; };
+const progressOf = t => { const its = itemsOf(t); return { n: its.length, done: its.filter(it => t.state(it, t) === "done").length }; };
+
+let queue = Promise.resolve(), typingTimer = null;
+function save(sheet, key, fields, { rerender = true } = {}) {
+  const sh = S.sheets[sheet], row = sh.rows.find(r => r[sh.key] === key);
+  Object.assign(row, fields);
+  if (rerender) render();
+  status("Saving…");
+  queue = queue.then(() => api("/api/update", { sheet, key, fields }))
+    .then(({ row: saved }) => { Object.assign(row, saved); status("All changes saved"); })
+    .catch(async e => { status(`Not saved: ${e.message}`, "err"); await loadSheet(sheet); render(); });
+  return queue;
+}
+
+async function route() {
+  const [role, task] = location.hash.slice(1).split("/");
+  S.role = S.meta.kit ? S.meta.kit.role : ROLES[role] ? role : null;
+  const t = S.role && ROLES[S.role].tasks.includes(task) ? task : null;
+  if (t !== S.task) { S.task = t; S.idx = LS.get(`idx:${t}`, 0); S.step = -1; }
+  try {
+    const names = new Set((S.task ? [S.task] : S.role ? ROLES[S.role].tasks : []).flatMap(k => TASKS[k].sheets || [TASKS[k].sheet]).filter(Boolean));
+    await Promise.all([...names].map(loadSheet));
+  } catch (e) { status(`Can't load: ${e.message}`, "err"); }
+  render(); window.scrollTo(0, 0);
+  if (S.task && TASKS[S.task].help && !LS.get(`seen:${TASKS[S.task].help}`, false)) openHelp();
+}
+window.addEventListener("hashchange", route);
+
+function render() {
+  $("#who").innerHTML = S.role ? `${esc(ROLES[S.role].name)}${S.meta.kit ? "" : ` <a href="#">change</a>`}` : "";
+  $("#page").innerHTML = !S.role ? vPick() : !S.task ? vRole() : vTask();
+}
+
+function vPick() {
+  return `<h1>Who is working now?</h1><p class="lead">Pick your role. You can change it any time from the top bar.</p>
+    <div class="people">${Object.entries(ROLES).map(([k, r]) => `<a class="person" href="#${k}"><b>${esc(r.name)}</b><span>${esc(r.blurb)}</span></a>`).join("")}</div>
+    <div class="card small muted" style="margin-top:22px">Everything is saved automatically as you go, so you can stop and come back at any time.
+    Rater 2 never sees Rater 1's answers.</div>`;
+}
+function vRole() {
+  const R = ROLES[S.role];
+  const rows = R.tasks.map((k, i) => {
+    const t = TASKS[k], sh = sheetOf(t);
+    let meta = t.time ? `Takes ${t.time}.` : "", bar = "", btn = "Open", done = false;
+    if (t.sheet) {
+      if (!sh || !sh.exists) { meta = t.missing || "Not available yet."; btn = ""; }
+      else {
+        const p = progressOf(t); done = p.n > 0 && p.done === p.n;
+        if (!p.n) { meta = t.empty || "Nothing to do yet."; btn = ""; }
+        else { bar = `<div class="bar minibar ${done ? "full" : ""}"><i style="width:${pct(p.done, p.n)}%"></i></div>`;
+               meta = `${p.done} of ${p.n} ${t.unit} done${t.time && !done ? ` · takes ${t.time}` : ""}`;
+               btn = done ? "Review" : p.done ? "Continue" : "Start"; }
+      }
+    }
+    return `<div class="task"><div class="num ${done ? "done" : ""}">${done ? "✓" : i + 1}</div>
+      <div><div class="t">${esc(t.title)}</div><div class="d">${esc(t.desc)}</div><div class="meta">${esc(meta)}</div>${bar}</div>
+      <div class="go">${btn ? `<a class="btn ${done ? "" : "primary"}" href="#${S.role}/${k}">${btn}</a>` : ""}</div></div>`;
+  }).join("");
+  const extra = {
+    r1: `<div class="card"><h2>When you're finished</h2><p class="small">Hand over to Rater 2. They can use this computer: open this page and choose “Rater 2”. Please don't tell them your answers.
+      After both of you finish the practice round, open “Raters 1 + 2 together” to compare before rating the 100 examples.</p></div>`,
+    r2: `<div class="card"><h2>Before you start</h2><p class="small">Work on your own and don't discuss examples with Rater 1 until you've finished. Each task has a “How to do this” button with examples.
+      There's no rush: everything is saved as you go.</p></div>`,
+    adj: `<div class="card"><h2>How this works</h2><p class="small">Two people answered the same questions on their own. You only look at the places where they disagreed, and you see both of their answers.
+      Start with the practice comparison to learn the questions.</p></div>`,
+    together: `<div class="card"><h2>Order</h2><ol class="small" style="margin:0;padding-left:18px">
+      <li>When you've both done the practice round: compare the practice answers.</li>
+      <li>When you've both done everything: run “Compute agreement”.</li>
+      <li>Hand over to the Adjudicator.</li><li>Then run the remaining steps.</li></ol></div>`,
+  }[S.role];
+  if (S.meta.kit) {
+    const to = S.meta.kit.send_to || "the person who sent you this";
+    return `<h1>${esc(R.name)}</h1><p class="lead">${esc(R.blurb)}</p><div class="card">${rows}</div>
+      <div class="card"><h2>Sending your answers back</h2>
+      <p class="small">Your answers are saved on this computer as you go. Whenever ${esc(to)} asks for them, or when you've finished, click the button and send the downloaded file to ${esc(to)}.
+      You can send it several times; the newest file always counts.</p>
+      <a class="btn primary" href="/api/export">Download my answers</a>
+      <p class="small muted" style="margin-top:14px">Please work on your own and don't discuss the examples with the other rater until you're both done.
+      If you get a new copy of this kit later, send your answers back first, then continue in the new copy.</p></div>`;
+  }
+  return `<h1>${esc(R.name)}</h1><p class="lead">${esc(R.blurb)}</p><div class="card">${rows}</div>${extra}`;
+}
+
+let ITEMS = [];
+function vTask() {
+  const t = TASKS[S.task];
+  const top = `<div class="crumbs"><a href="#${S.role}">← Back to tasks</a>${t.help ? `<button class="link" data-act="help">How to do this</button>` : ""}</div>`;
+  if (t.page) return top + `<h1>${esc(t.title)}</h1>` + t.page();
+  const sh = sheetOf(t);
+  if (!sh || !sh.exists) return top + `<h1>${esc(t.title)}</h1><div class="card muted">${esc(t.missing || "Not available yet.")}</div>`;
+  ITEMS = t.items(sh, t);
+  if (!ITEMS.length) return top + `<h1>${esc(t.title)}</h1><div class="card muted">${esc(t.empty || "Nothing to do.")}</div>`;
+  S.idx = Math.max(0, Math.min(S.idx, ITEMS.length - 1)); LS.set(`idx:${S.task}`, S.idx);
+  const it = ITEMS[S.idx], done = ITEMS.filter(x => t.state(x, t) === "done").length;
+  const banner = done === ITEMS.length
+    ? `<div class="banner ok">All ${ITEMS.length} done. Thank you! You can still look through and change any answer.</div>` : extraBanner();
+  const opts = ITEMS.map((x, i) => `<option value="${i}" ${i === S.idx ? "selected" : ""}>${t.state(x, t) === "done" ? "✓" : "·"} ${i + 1}. ${esc((x.snip || "").slice(0, 70))}</option>`).join("");
+  return top + `<h1>${esc(t.title)}</h1>
+    <div class="progress"><div class="bar ${done === ITEMS.length ? "full" : ""}"><i style="width:${pct(done, ITEMS.length)}%"></i></div><span>${done} of ${ITEMS.length} done</span></div>
+    ${banner}
+    <div class="card"><div class="itemhead"><span>Example ${S.idx + 1} of ${ITEMS.length}</span>${t.state(it, t) === "done" ? `<span class="tick">✓ Done</span>` : ""}</div>${t.view(it, t)}</div>
+    <div class="itemnav"><button class="btn" data-act="prev" ${S.idx ? "" : "disabled"}>← Previous</button>
+      <select id="jump" aria-label="Jump to an example">${opts}</select>
+      <button class="btn" data-act="next" ${S.idx < ITEMS.length - 1 ? "" : "disabled"}>Next →</button></div>`;
+}
+function extraBanner() {
+  if (S.task === "phen") return `<div class="banner small">${S.phenAll ? "Showing all 300 examples (the extra 200 are optional)." : "Showing the 100 required examples."}
+    <button class="link" data-act="phenall">${S.phenAll ? "Show only the 100 required" : "Also tag the other 200 (optional)"}</button></div>`;
+  if (S.task === "int_final") {
+    const n = ITEMS.filter(x => { const a = x.row[`${x.kind}_gold_r1`]; return a && a === x.row[`${x.kind}_gold_r2`] && !x.row[`${x.kind}_gold_final`]; }).length;
+    if (n) return `<div class="banner"><span>Both raters chose the same label for <b>${n}</b> pairs. Fill those in first, then decide the rest.</span>
+      <button class="btn primary" data-act="fillagree">Fill in ${n} agreed labels</button></div>`;
+  }
+  return "";
+}
+function go(i) {
+  if (!ITEMS.length) return;
+  S.idx = Math.max(0, Math.min(ITEMS.length - 1, i)); S.step = -1;
+  render(); window.scrollTo(0, 0);
+}
+function nextOpen() {
+  const t = TASKS[S.task];
+  for (let k = 1; k <= ITEMS.length; k++) { const i = (S.idx + k) % ITEMS.length; if (t.state(ITEMS[i], t) !== "done") return go(i); }
+  go(S.idx + 1);
+}
+
+function sentences(s1, s2, o = {}) {
+  return `<div class="sents"><div class="sent"><span class="lbl">${o.l1 || "Sentence 1"}</span>${s1}</div>
+    <div class="sent"><span class="lbl">${o.l2 || "Sentence 2"}</span>${s2}</div></div>`;
+}
+function bigLabels(field, value) {
+  return `<div class="big">${S.meta.labels.map((l, i) => `<button class="${l} ${value === l ? "on" : ""}" data-label="${l}" data-field="${field}">
+    ${LABEL[l]}<small>${LABEL_SUB[l]} · key ${i + 1}</small></button>`).join("")}</div>`;
+}
+
+function spanParts(premise, span) {
+  const at = span ? premise.toLowerCase().indexOf(span.toLowerCase()) : -1;
+  return at < 0 ? null : { before: premise.slice(0, at), span: premise.slice(at, at + span.length), after: premise.slice(at + span.length) };
+}
+function replacementOf(p, saved) {
+  if (!saved) return "";
+  const one = s => s.replace(/\s+/g, " "), v = one(saved).trim(), b = one(p.before).trimStart(), a = one(p.after).trimEnd();
+  const lv = v.toLowerCase();
+  if (v.length >= b.length + a.length && lv.startsWith(b.toLowerCase()) && lv.endsWith(a.toLowerCase()))
+    return v.slice(b.length, v.length - a.length).trim();
+  if (v.length < b.length + a.length) return v;
+  return null;
+}
+const fullSentence = (p, repl) => repl.trim() && norm(repl) !== norm(p.span) ? (p.before + repl.trim() + p.after).replace(/\s+/g, " ").trim() : "";
+
+function vWrite(it) {
+  const r = it.row;
+  const box = (kind, cls, name) => {
+    const span = r[`${kind}_span`], saved = r[`${kind}_edited_sentence`], p = spanParts(r.premise, span);
+    const repl = p ? replacementOf(p, saved) : null;
+    if (p && repl === null) {
+      return `<div class="edit"><h2>${name}: replace <mark class="${cls}">${esc(span)}</mark></h2>
+        <div class="diffline">${wordDiff(r.premise, saved)}</div>
+        <div class="warn">This answer changed words outside the coloured part. <button class="link" data-clear="${kind}">Start this one again</button></div></div>`;
+    }
+    if (!p) {
+      return `<div class="edit"><h2>${name}: replace <mark class="${cls}">${esc(span)}</mark></h2>
+        <textarea rows="2" data-whole="${kind}">${esc(saved || r.premise)}</textarea></div>`;
+    }
+    if (saved && fullSentence(p, repl) !== saved) save("interventions", it.key, { [`${kind}_edited_sentence`]: fullSentence(p, repl) }, { rerender: false });
+    return `<div class="edit"><h2>${name}: replace <mark class="${cls}">${esc(span)}</mark></h2>
+      <div class="fill">${esc(p.before)}<input data-write="${kind}" value="${esc(repl)}" placeholder="new words for “${esc(p.span)}”" spellcheck="true" autocomplete="off">${esc(p.after)}</div>
+      <div data-check="${kind}">${writeCheck(r.premise, p, repl)}</div></div>`;
+  };
+  return sentences(highlight(r.premise, [[r.cited_span, "y"], [r.uncited_span, "b"]]), esc(r.hypothesis)) +
+    `<div class="field"><span class="lbl">Correct answer</span>${ans(r.gold_label)}</div>
+    <p class="note" style="margin-top:14px">The AI pointed to the <mark class="y">yellow words</mark> when it answered. In each box below, type only the
+    <b>new words</b> that replace the coloured part. The rest of the sentence stays as it is.</p>
+    ${box("cited", "y", "Version A")}${box("uncited", "b", "Version B")}
+    <div class="field"><span class="lbl">Notes (optional)</span><textarea rows="1" data-notes="notes">${esc(r.notes)}</textarea></div>`;
+}
+function writeCheck(premise, p, repl) {
+  if (!repl.trim()) return `<div class="note small" style="margin-top:8px">Not done yet: type the new words in the box.</div>`;
+  if (norm(repl) === norm(p.span)) return `<div class="warn">These are the same words as before. Type different words.</div>`;
+  const d = toks(repl).length - toks(p.span).length;
+  const msg = Math.abs(d) > 2 ? `<div class="warn">Your words are ${Math.abs(d)} words ${d > 0 ? "longer" : "shorter"} than the coloured part. Keep the length similar (at most 2 words different).</div>`
+    : `<div class="good">✓ Looks good, saved</div>`;
+  return `<div class="diffline"><span class="muted">New sentence:</span> ${wordDiff(premise, fullSentence(p, repl))}</div>` + msg;
+}
+
+function vLabel(it, t) {
+  const f = labelField(it, t);
+  return `<p class="note" style="margin-top:0">Imagine sentence 1 describes a photo. Given that, is sentence 2…</p>` +
+    sentences(esc(it.row[`${it.kind}_edited_sentence`]), esc(it.row.hypothesis)) + bigLabels(f, it.row[f]);
+}
+
+function vFinal(it) {
+  const r = it.row, a = r[`${it.kind}_gold_r1`], b = r[`${it.kind}_gold_r2`], f = `${it.kind}_gold_final`;
+  const verdict = a && b ? (a === b ? `<span class="tick">They agree</span>` : `<b style="color:var(--false)">They disagree</b>`) : `<span class="muted">Not both labelled yet</span>`;
+  return sentences(wordDiff(r.premise, r[`${it.kind}_edited_sentence`]), esc(r.hypothesis), { l1: "Sentence 1 (edited; the change is marked)" }) +
+    `<div class="field"><span class="lbl">The raters said</span>Rater 1: ${ans(a)} &nbsp; Rater 2: ${ans(b)} &nbsp; ${verdict}</div>` +
+    bigLabels(f, r[f]);
+}
+
+function vPhen(it) {
+  const r = it.row, on = new Set(multi(r.phenomenon));
+  return sentences(esc(r.premise), esc(r.hypothesis)) +
+    `<div class="field"><span class="lbl">Correct answer</span>${ans(r.gold_label)}${r.auto_hint ? ` <span class="note small">&nbsp;(hint: ${esc(r.auto_hint)})</span>` : ""}</div>
+    <div class="field"><span class="lbl">What does the answer depend on? Pick one or more</span>
+    <div class="tags">${S.meta.phenomena.map((p, i) => `<button class="tag ${on.has(p) ? "on" : ""}" data-phen="${esc(p)}"><kbd>${i + 1}</kbd><b>${esc(p)}</b><span>${esc(PHEN[p])}</span></button>`).join("")}</div></div>
+    <div class="field"><span class="lbl">Notes (optional)</span><textarea rows="1" data-notes="notes">${esc(r.notes)}</textarea></div>`;
+}
+
+const stepDone = (r, s) => s === 0 ? Object.keys(QS).every(q => r[`orig_${q}`]) : s === 1 ? Object.keys(QS).every(q => r[`var_${q}`])
+  : r.P1 && (r.mod_type !== "irrelevant_addition" || r.P2);
+function vRate(it) {
+  const r = it.row;
+  if (S.step < 0) S.step = [0, 1, 2].find(s => !stepDone(r, s)) ?? 0;
+  const names = ["1 · Before the change", "2 · After the change", "3 · Compare"];
+  const tabs = `<div class="steps">${names.map((n, i) => `<button data-step="${i}" class="${S.step === i ? "on" : ""} ${stepDone(r, i) ? "ok" : ""}">${n}</button>`).join("")}</div>`;
+  const body = S.step === 0 ? sideView(r, "orig") : S.step === 1 ? sideView(r, "var") : compareView(r);
+  const next = S.step < 2 ? `<button class="btn primary" data-step="${S.step + 1}">Continue →</button>`
+    : `<button class="btn primary" data-act="nextopen">Done, next example →</button>`;
+  return tabs + body + `<div style="margin-top:16px;text-align:right">${next}</div>`;
+}
+function aiBlock(r, side) {
+  const s1 = r[`${side}_premise`], s2 = r[`${side}_hypothesis`];
+  return `<div class="field"><span class="lbl">The AI's answer</span>${ans(r[`${side}_label`])}</div>
+    <div class="field"><span class="lbl">Words the AI quoted</span>${quotes(r[`${side}_evidence`], s1, s2)}</div>
+    <div class="field"><span class="lbl">The AI's explanation</span><div class="expl">${esc(r[`${side}_explanation`] || "(no explanation)")}</div></div>`;
+}
+function qRow(field, q, row, extra = "") {
+  return `<div class="q ${row[field] ? "" : "todo"}"><div class="qt">${esc(q.text)}</div>${q.hint ? `<div class="qh">${esc(q.hint)}</div>` : ""}
+    <div class="opts">${q.opts.map(([v, txt]) => `<button data-f="${field}" data-v="${esc(v)}" class="${row[field] === v ? "on" : ""}">${esc(txt)}</button>`).join("")}</div>${extra}</div>`;
+}
+function sideView(r, side) {
+  const m = MOD[r.mod_type] || {};
+  const sents = side === "orig" ? sentences(esc(r.orig_premise), esc(r.orig_hypothesis))
+    : `<div class="banner small"><span><b>${esc(m.name || "")}.</b> ${esc(m.hint || "")} Removed words are <del>struck out</del>, new words are <ins>green</ins>.</span></div>` +
+      sentences(wordDiff(r.orig_premise, r.var_premise), wordDiff(r.orig_hypothesis, r.var_hypothesis));
+  return sents + aiBlock(r, side) + `<div class="field" style="margin-top:18px">${Object.entries(QS).map(([q, d]) => qRow(`${side}_${q}`, d, r)).join("")}</div>`;
+}
+function problems(r) {
+  const on = new Set(multi(r.failure_tags)), names = v => multi(v).map(t => PROBLEMS[t]?.[0] || t).join(", ") || "nothing";
+  const both = "failure_tags__r1" in r ? `<div class="raters">Rater 1 ticked: <b>${esc(names(r.failure_tags__r1))}</b> · Rater 2 ticked: <b>${esc(names(r.failure_tags__r2))}</b></div>` : "";
+  return `<div class="q"><div class="qt">Any of these problems? <span class="muted" style="font-weight:400">(optional, tick all that apply)</span></div>${both}
+    <div class="checks">${S.meta.failure_tags.map(t => `<label><input type="checkbox" data-tag="${t}" ${on.has(t) ? "checked" : ""}>
+      <span><b>${esc(PROBLEMS[t]?.[0] || t)}</b><br><span class="sub">${esc(PROBLEMS[t]?.[1] || "")}</span></span></label>`).join("")}</div></div>
+    <div class="q"><div class="qt">Comment <span class="muted" style="font-weight:400">(optional)</span></div><textarea rows="2" data-notes="comments">${esc(r.comments)}</textarea></div>`;
+}
+function compareView(r) {
+  const m = MOD[r.mod_type] || {};
+  const side = (s, n) => `<div class="side"><span class="lbl">${n}</span>${ans(r[`${s}_label`])}<div style="margin-top:6px">${esc(r[`${s}_explanation`] || "(no explanation)")}</div></div>`;
+  return `<div class="banner small"><span><b>${esc(m.name || "")}.</b> ${esc(m.hint || "")}</span></div>
+    <div class="two">${side("orig", "Before the change")}${side("var", "After the change")}</div>
+    <div class="field">${qRow("P1", PQ.P1, r)}${r.mod_type === "irrelevant_addition" ? qRow("P2", PQ.P2, r) : ""}${problems(r)}</div>`;
+}
+
+function vAdj(it) {
+  const r = it.row, fields = adjFields(r), disputed = fields.filter(f => r[`${f}__r1`] !== r[`${f}__r2`]);
+  const ctx = s => `<div class="side"><span class="lbl">${s === "orig" ? "Before the change" : "After the change"}</span>
+    <div style="margin:4px 0"><b>1.</b> ${s === "orig" ? esc(r.orig_premise) : wordDiff(r.orig_premise, r.var_premise)}<br><b>2.</b> ${s === "orig" ? esc(r.orig_hypothesis) : wordDiff(r.orig_hypothesis, r.var_hypothesis)}</div>
+    ${ans(r[`${s}_label`])}<div style="margin-top:6px">${quotes(r[`${s}_evidence`], r[`${s}_premise`], r[`${s}_hypothesis`])}</div>
+    <div style="margin-top:6px">${esc(r[`${s}_explanation`] || "(no explanation)")}</div></div>`;
+  const row = f => qRow(f, { ...qOf(f), text: fieldName(f) }, r,
+    `<div class="raters">Rater 1 said <b>${esc(optName(f, r[`${f}__r1`]))}</b> · Rater 2 said <b>${esc(optName(f, r[`${f}__r2`]))}</b></div>`);
+  const agreed = fields.filter(f => !disputed.includes(f));
+  return `<div class="banner small"><span><b>${esc(MOD[r.mod_type]?.name || "")}.</b> ${esc(MOD[r.mod_type]?.hint || "")}</span></div>
+    <div class="two">${ctx("orig")}${ctx("var")}</div>
+    <div class="field"><span class="lbl">${disputed.length ? `To decide (${disputed.length})` : "Nothing to decide: the raters agreed on every question"}</span>${disputed.map(row).join("")}</div>
+    ${problems(r)}
+    ${agreed.length ? `<details class="box" style="margin-top:12px"><summary class="small">Answers both raters agreed on (${agreed.length}). Change one only if it's clearly wrong.</summary><div>${agreed.map(row).join("")}</div></details>` : ""}`;
+}
+
+function vCalCompare() {
+  const a = S.sheets.calibration_r1, b = S.sheets.calibration_r2;
+  if (!a || !b || !a.exists || !b.exists) return `<div class="card muted">Both raters need to start the practice round first.</div>`;
+  let same = 0, both = 0;
+  const cards = a.rows.map((ra, i) => {
+    const rb = b.rows.find(x => x.pair_uid === ra.pair_uid) || {};
+    const rows = rateRequired(ra).map(f => {
+      const x = ra[f] || "", y = rb[f] || "";
+      if (x && y) { both++; if (x === y) same++; }
+      return `<tr class="${x && y && x !== y ? "diff" : ""}"><td>${esc(fieldName(f))}</td><td>${esc(optName(f, x))}</td><td>${esc(optName(f, y))}</td></tr>`;
+    }).join("");
+    const nd = rateRequired(ra).filter(f => ra[f] && rb[f] && ra[f] !== rb[f]).length;
+    return `<details class="box"><summary><b>Practice ${i + 1}</b> · ${esc(MOD[ra.mod_type]?.name || "")} · ${nd ? `${nd} different` : "no differences"}</summary><div>
+      <div class="two">${["orig", "var"].map(s => `<div class="side"><span class="lbl">${s === "orig" ? "Before" : "After"}</span>
+        <b>1.</b> ${s === "orig" ? esc(ra.orig_premise) : wordDiff(ra.orig_premise, ra.var_premise)}<br><b>2.</b> ${s === "orig" ? esc(ra.orig_hypothesis) : wordDiff(ra.orig_hypothesis, ra.var_hypothesis)}<br>
+        ${ans(ra[`${s}_label`])}<div style="margin-top:6px">${esc(ra[`${s}_explanation`])}</div></div>`).join("")}</div>
+      <table class="cmp"><tr><th>Question</th><th>Rater 1</th><th>Rater 2</th></tr>${rows}</table></div></details>`;
+  }).join("");
+  return `<p class="lead">Open each practice example. Differences are highlighted. Talk them through and agree how you read each question. Nothing here is saved or counted.</p>
+    <div class="banner">${both ? `The raters gave the same answer ${same} times out of ${both} (${pct(same, both)}%).` : "No practice answers to compare yet."}</div>${cards}`;
+}
+function vRun() {
+  const step = (n, a, title, desc) => `<div class="card"><h2>${n}. ${title}</h2><p class="small muted">${desc}</p>
+    <button class="btn primary" data-run="${a}">Run</button></div>`;
+  return `<p class="lead">Use these in order. Each one can take up to a minute.</p>
+    ${step(1, "agreement", "Compute agreement", "When both raters have finished rating. Measures how often they agreed and prepares the Adjudicator's task.")}
+    ${step(2, "build_interventions", "Build the edited-sentence test", "When the Adjudicator has set the final labels for the edited sentences.")}
+    <div class="card"><h2>3. Run the AI on the edited sentences</h2><p class="small muted">This uses the paid API, so it runs from the terminal:</p><pre class="out">bash jobs/run_nebius.sh interventions</pre></div>
+    ${step(4, "results", "Human evaluation results", "When the Adjudicator has settled all rating disagreements.")}
+    ${step(5, "analysis", "Rebuild the full analysis", "Last step. Recomputes every table, figure and the summary.")}
+    <pre class="out" id="runout" hidden></pre>`;
+}
+
+const HELP = {
+  write: `<h1>Write edited sentences</h1>
+    <p>Each example has two sentences. The AI answered whether sentence 2 is true given sentence 1, and quoted some words as its evidence (<mark class="y">yellow</mark>).
+    Another part of sentence 1 it did not quote is <mark class="b">blue</mark>.</p>
+    <p>Write two new versions of sentence 1: <b>Version A</b> replaces only the yellow words, <b>Version B</b> replaces only the blue words. Keep everything else exactly the same.</p>
+    <div class="ex"><div class="h">Example</div>
+      Sentence 1: A woman <mark class="b">in a red coat</mark> is <mark class="y">walking her dog along the beach</mark>.<br>Sentence 2: A woman is outdoors with an animal.<br><br>
+      Version A: A woman in a red coat is <ins>reading a book in her kitchen</ins>.<br>
+      Version B: A woman <ins>in a blue jacket</ins> is walking her dog along the beach.</div>
+    <div class="ex bad"><div class="h">Avoid</div>
+      “A woman is walking along the beach.” Words were deleted and text outside the coloured part changed.<br>
+      “…walking her small brown dog that her neighbour gave her along the beach.” Far longer than the original words.<br>
+      “…is walk dog beach.” Not a natural sentence.</div>
+    <p>In each box, type <b>only the new words</b>. For Version A above you would type “reading a book in her kitchen”. The rest of the sentence is filled in for you, and the full new sentence appears under the box.</p>
+    <p class="small muted">The new sentence doesn't have to change the answer. Just make a natural replacement. A check under each box warns you if something is off.</p>`,
+  label: `<h1>Label sentence pairs</h1>
+    <p>Imagine sentence 1 is a caption of a photo. Given that, is sentence 2 <b>definitely true</b>, <b>might be true</b>, or <b>definitely false</b>?</p>
+    <div class="ex"><div class="h">Sentence 1: A man is slicing tomatoes in a kitchen.</div>
+      “A man is preparing food.” → ${ans("entailment")}<br>
+      “The man is cooking for his wife.” → ${ans("neutral")} (we don't know who it's for)<br>
+      “The man is asleep on the couch.” → ${ans("contradiction")}</div>
+    <p>Use normal common sense (a puppy is a dog), but don't invent facts. If it could be true but isn't certain, choose “might be true”.</p>
+    <p class="small muted">Keys <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> choose an answer and move on. <kbd>←</kbd> <kbd>→</kbd> go back and forward.</p>`,
+  final: `<h1>Final labels for the edited sentences</h1>
+    <p>Both raters labelled every edited pair without seeing each other's answer. First click <b>Fill in agreed labels</b>. Then, for each remaining pair, read the two sentences and choose the label a careful reader would pick.</p>
+    <p>${ans("entailment")} sentence 2 must be true · ${ans("neutral")} can't tell · ${ans("contradiction")} sentence 2 can't be true.</p>
+    <p class="small muted">Keys <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> choose an answer and move to the next open pair.</p>`,
+  rate: `<h1>Rate the AI's explanations</h1>
+    <p>An AI read two sentences and said whether sentence 2 is ${ans("entailment")}, ${ans("neutral")} or ${ans("contradiction")} given sentence 1. It also quoted some words and explained why.
+    Then one of the sentences was edited, and the AI answered again.</p>
+    <p>Each example has three short steps:</p>
+    <ol><li><b>Before the change:</b> four questions about the first explanation.</li><li><b>After the change:</b> the same four questions about the second explanation.</li>
+      <li><b>Compare:</b> did the explanation change in the right way?</li></ol>
+    <div class="ex"><div class="h">Example: a good explanation</div>
+      Before: “Two men are playing chess in a park.” / “Two people are playing a board game.” AI: ${ans("entailment")}, “Chess is a board game and men are people.”<br>
+      After: “Two men are playing <ins>soccer</ins> in a park.” AI: ${ans("contradiction")}, “Soccer is not a board game.”<br>
+      → Both sides: reasons back up the answer <b>Yes</b>, explanation <b>Right</b>, claims something not said <b>No</b>. Compare: <b>Yes, it changed the right way</b>.</div>
+    <div class="ex bad"><div class="h">Example: kept the old reasons</div>
+      After: “Two men are playing <ins>soccer</ins> in a park.” AI: ${ans("entailment")}, “Chess is a board game and men are people.”<br>
+      → After: reasons back up the answer <b>Yes</b> (they would support it if true), explanation <b>Wrong</b> (there's no chess any more), claims something not said <b>Yes</b>.
+      Compare: <b>No, it kept the old reasons</b>. Problems: “Misses an important change”.</div>
+    <div class="ex bad"><div class="h">Example: reacts to an unimportant detail</div>
+      After: “Two men are playing chess in a park <ins>on a sunny afternoon</ins>.” AI: ${ans("neutral")}, “We don't know if it's sunny where they play.”<br>
+      → Compare: <b>It changed, but it shouldn't have</b>. Added detail important: <b>Yes</b>. Problems: “Reacts to an unimportant detail”.</div>
+    <p class="small"><b>Tips.</b> The first question ignores whether the AI's answer is right: wrong answer + reasons that fit it = “Yes”.
+    If the AI quoted words that don't matter (e.g. “in the background”), the quoted-words question is “Some” or “None”. The full rubric is in <code>annotation/rubric.md</code>.</p>`,
+  adjudicate: `<h1>Settle rating disagreements</h1>
+    <p>For each example you see the sentences and the AI's answers before and after the change. Below that are only the questions where Rater 1 and Rater 2 answered differently, with both of their answers.
+    Pick the answer that best fits the question (it can also be a third option if both were wrong).</p>
+    <p>Then set the problem ticks: both raters' ticks are shown; keep the ones you agree with.</p>
+    <p class="small muted">Questions the raters agreed on are filled in already and folded away at the bottom. Look at the examples in the practice comparison if a question is unclear.</p>`,
+  phen: `<h1>Tag what each example depends on</h1>
+    <p>Look at the original pair and its correct answer. What does that answer hinge on? Pick every tag that applies; usually one or two.</p>
+    <div class="ex"><div class="h">Examples</div>
+      “Three children are playing in the snow.” / “Two kids are outside.” → <b>quantity</b><br>
+      “A man in a blue shirt is sleeping.” / “A man is not awake.” → <b>negation</b>, <b>action</b><br>
+      “A girl is jumping on a trampoline.” / “The girl is at her birthday party.” → <b>missing information</b><br>
+      “A dog runs across the beach.” / “An animal is near the ocean.” → <b>location/scene</b>, <b>world knowledge</b></div>
+    <p class="small muted">The grey hint only means a matching word appears; check it yourself. Keys <kbd>1</kbd>–<kbd>8</kbd> toggle tags.</p>`,
+};
+function openHelp() {
+  const k = TASKS[S.task]?.help; if (!k) return;
+  $("#modalbody").innerHTML = HELP[k]; $("#modal").hidden = false; LS.set(`seen:${k}`, true);
+}
+
+document.addEventListener("click", async e => {
+  if (e.target.id === "modal") return $("#modal").hidden = true;
+  const el = e.target.closest("button");
+  if (!el) return;
+  const a = el.dataset.act, t = TASKS[S.task], it = ITEMS[S.idx];
+  if (a === "close") return $("#modal").hidden = true;
+  if (a === "help") return openHelp();
+  if (a === "prev") return go(S.idx - 1);
+  if (a === "next") return go(S.idx + 1);
+  if (a === "nextopen") return nextOpen();
+  if (a === "phenall") { S.phenAll = !S.phenAll; S.idx = 0; return render(); }
+  if (a === "fillagree") {
+    for (const x of ITEMS) {
+      const v = x.row[`${x.kind}_gold_r1`];
+      if (v && v === x.row[`${x.kind}_gold_r2`] && !x.row[`${x.kind}_gold_final`]) save(t.sheet, x.key, { [`${x.kind}_gold_final`]: v }, { rerender: false });
+    }
+    return render();
+  }
+  if (el.dataset.run) {
+    const out = $("#runout"); out.hidden = false; out.textContent = "Running… this can take a minute."; el.disabled = true;
+    try { const r = await api("/api/run", { action: el.dataset.run }); out.textContent = (r.ok ? "✓ Finished\n\n" : "✗ Something went wrong\n\n") + r.output; }
+    catch (err) { out.textContent = `✗ ${err.message}`; }
+    el.disabled = false; return;
+  }
+  if (el.dataset.step !== undefined) { S.step = +el.dataset.step; render(); return window.scrollTo(0, 0); }
+  if (el.dataset.label) {
+    save(t.sheet, it.key, { [el.dataset.field]: el.dataset.label }, { rerender: false });
+    return setTimeout(nextOpen, 120);
+  }
+  if (el.dataset.f) return save(t.sheet, it.key, { [el.dataset.f]: el.dataset.v });
+  if (el.dataset.phen) return togglePhen(el.dataset.phen);
+  if (el.dataset.clear) return save(t.sheet, it.key, { [`${el.dataset.clear}_edited_sentence`]: "" });
+});
+document.addEventListener("change", e => {
+  const el = e.target, t = TASKS[S.task], it = ITEMS[S.idx];
+  if (el.id === "jump") return go(+el.value);
+  if (el.dataset.tag) {
+    const on = new Set(multi(it.row.failure_tags));
+    el.checked ? on.add(el.dataset.tag) : on.delete(el.dataset.tag);
+    save(t.sheet, it.key, { failure_tags: S.meta.failure_tags.filter(x => on.has(x)).join(";") }, { rerender: false });
+  }
+});
+function togglePhen(p) {
+  const it = ITEMS[S.idx], on = new Set(multi(it.row.phenomenon));
+  on.has(p) ? on.delete(p) : on.add(p);
+  save("phenomena", it.key, { phenomenon: S.meta.phenomena.filter(x => on.has(x)).join(";") });
+}
+document.addEventListener("input", e => {
+  const el = e.target, t = TASKS[S.task], it = ITEMS[S.idx];
+  if (!el.dataset.write && !el.dataset.whole && !el.dataset.notes) return;
+  let field = el.dataset.notes, val = el.value;
+  if (el.dataset.write) {
+    const kind = el.dataset.write, p = spanParts(it.row.premise, it.row[`${kind}_span`]);
+    field = `${kind}_edited_sentence`;
+    $(`[data-check="${kind}"]`).innerHTML = writeCheck(it.row.premise, p, val);
+    val = fullSentence(p, val);
+  }
+  if (el.dataset.whole) {
+    field = `${el.dataset.whole}_edited_sentence`;
+    if (norm(val) === norm(it.row.premise)) val = "";
+  }
+  clearTimeout(typingTimer); status("Typing…");
+  const key = it.key;
+  typingTimer = setTimeout(() => save(t.sheet, key, { [field]: val }, { rerender: false }), 500);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") return $("#modal").hidden = true;
+  if (!S.task || !$("#modal").hidden || e.target.matches("textarea, input, select") || e.metaKey || e.ctrlKey || e.altKey) return;
+  const t = TASKS[S.task];
+  if (t.page) return;
+  if (e.key === "ArrowLeft") return go(S.idx - 1);
+  if (e.key === "ArrowRight") return go(S.idx + 1);
+  const n = parseInt(e.key, 10);
+  if (!n) return;
+  if (t.view === vLabel || t.view === vFinal) { const b = document.querySelectorAll(".big button")[n - 1]; if (b) b.click(); }
+  else if (t.view === vPhen && n <= S.meta.phenomena.length) togglePhen(S.meta.phenomena[n - 1]);
+});
+window.addEventListener("beforeunload", e => { if (["Typing…", "Saving…"].includes($("#status").textContent)) e.preventDefault(); });
+
+(async () => {
+  try { S.meta = await api("/api/meta"); } catch { return status("Can't reach the server. Is annotate/app.py running?", "err"); }
+  await route();
+})();
+</script>
+</body>
+</html>
