@@ -1,0 +1,5 @@
+proxy,human,description,n,agreement,kappa,precision,recall
+var_probe_consistent,var_Q1,probe agrees with label ~ human: explanation supports label,100,0.890,-0.034,0.908,0.978
+addresses_change,P1,overlap proxy ~ human: explanation updated appropriately,28,0.893,0.000,1.000,0.893
+cites_addition,P2,cites added text ~ human: treats addition as decisive,40,0.875,0.000,0.000,
+mentions_addition,P2,mentions added text ~ human: treats addition as decisive,40,0.925,0.000,0.000,
