@@ -1,6 +1,6 @@
 # Do LLM Explanations Track the Evidence?
 
-Course project (Project 26, NLP, University of Oulu). We test whether the explanations an LLM gives for its
+We test whether the explanations an LLM gives for its
 NLI predictions actually follow the evidence. Starting from e-SNLI, we make small controlled edits to each
 example (a label-changing edit, a paraphrase and an irrelevant addition) and check whether the label and the
 explanation change together when they should, and stay put when they shouldn't.
